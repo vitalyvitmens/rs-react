@@ -21,3 +21,7 @@
 .App-link {
   color: #61dafb;
 }
+
+.App-grid {
+  display: flex;
+}
