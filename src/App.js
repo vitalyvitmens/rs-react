@@ -1,5 +1,6 @@
-import './App.css'
 import React, { useState } from 'react'
+import ClassComponentLifecycleMethods from './assets/classComponentLifecycleMethods.jpg'
+import './App.css'
 
 //! Коллекции и ключи
 // const FIELDS = [
@@ -138,6 +139,55 @@ import React, { useState } from 'react'
 // }
 
 //! Жизненный цикл компонента
+// class Clock extends React.Component {
+//   constructor(props) {
+//     super(props)
+//     console.log('#### №1: constructor')
+//     this.state = {
+//       date: new Date().toLocaleDateString(),
+//       time: new Date().toLocaleTimeString(),
+//     }
+//   }
+
+//   render() {
+//     console.log('#### №2: render')
+//     return (
+//       <>
+//         <div>Дата: {this.state.date}</div>
+//         <div>Время: {this.state.time}</div>
+//       </>
+//     )
+//   }
+
+//   componentDidMount() {
+//     console.log('#### №3: componentDidMount')
+//     this.interval = setInterval(() => {
+//       this.setState({
+//         time: new Date().toLocaleTimeString(),
+//       })
+//       console.log(this.state.date, this.state.time)
+//     }, 1000)
+//   }
+
+//   componentWillUnmount() {
+//     console.log('#### END: componentWillUnmount')
+//     clearInterval(this.interval)
+//   }
+// }
+
+// export default function App() {
+//   const [clock, setClock] = useState(true)
+//   return (
+//     <div className="App">
+//       <header className="App-header">
+//         {clock && <Clock />}
+//         <button onClick={() => setClock(!clock)}>Show/hide Clock</button>
+//       </header>
+//     </div>
+//   )
+// }
+
+//! Методы жизненного цикла классового компонента
 class Clock extends React.Component {
   constructor(props) {
     super(props)
@@ -156,6 +206,17 @@ class Clock extends React.Component {
         <div>Время: {this.state.time}</div>
       </>
     )
+  }
+
+  shouldComponentUpdate(nextProps, nextState, nextContext) {
+    console.log('#### №4: shouldComponentUpdate old State', this.state)
+    console.log('#### №4: shouldComponentUpdate new State', nextState)
+    return true // shouldComponentUpdate принимает решение стоит ли обновлять наш компонент, в данном случае стоит, так как true
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    console.log('#### №5: componentDidUpdate', this.state)
+
   }
 
   componentDidMount() {
@@ -181,6 +242,12 @@ export default function App() {
       <header className="App-header">
         {clock && <Clock />}
         <button onClick={() => setClock(!clock)}>Show/hide Clock</button>
+        <div>-</div>
+        <img
+          className="Class-component-lifecycle-methods"
+          src={ClassComponentLifecycleMethods}
+          alt="ClassComponentLifecycleMethods"
+        />
       </header>
     </div>
   )
