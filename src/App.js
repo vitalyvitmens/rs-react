@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import ClassComponentLifecycleMethods from './assets/classComponentLifecycleMethods.jpg'
 import RenderFunctionalComponent from './assets/renderFunctionalComponent.jpg'
 import './App.css'
+import Example from './components/Modal'
 
 //! Коллекции и ключи
 // const FIELDS = [
@@ -474,40 +475,51 @@ import './App.css'
 // }
 
 //! Используя конструкцию switch case:
-function Greeting() {
-  return <div>Привет!</div>
-}
+// function Greeting() {
+//   return <div>Привет!</div>
+// }
 
-function Bye() {
-  return <div>Пока!</div>
-}
+// function Bye() {
+//   return <div>Пока!</div>
+// }
 
+// export default function App() {
+//   const [isShow, setIsShow] = useState(undefined)
+
+//   switch (isShow) {
+//     case true:
+//       return (
+//         <>
+//           <button onClick={() => setIsShow((s) => !s)}>Click</button>
+//           <Greeting />
+//         </>
+//       )
+//     case false:
+//       return (
+//         <>
+//           <button onClick={() => setIsShow((s) => !s)}>Click</button>
+//           <Bye />
+//         </>
+//       )
+
+//     default:
+//       return (
+//         <div className="App">
+//           <header className="App-header">
+//             <button onClick={() => setIsShow((s) => !s)}>Click</button>
+//           </header>
+//         </div>
+//       )
+//   }
+// }
+
+//! Модальное окно
 export default function App() {
-  const [isShow, setIsShow] = useState(undefined)
-
-  switch (isShow) {
-    case true:
-      return (
-        <>
-          <button onClick={() => setIsShow((s) => !s)}>Click</button>
-          <Greeting />
-        </>
-      )
-    case false:
-      return (
-        <>
-          <button onClick={() => setIsShow((s) => !s)}>Click</button>
-          <Bye />
-        </>
-      )
-
-    default:
-      return (
-        <div className="App">
-          <header className="App-header">
-            <button onClick={() => setIsShow((s) => !s)}>Click</button>
-          </header>
-        </div>
-      )
-  }
+  return (
+    <div className="App">
+      <header className="App-header">
+        <Example />
+      </header>
+    </div>
+  )
 }
