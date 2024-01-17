@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ClassComponentLifecycleMethods from './assets/classComponentLifecycleMethods.jpg'
 import './App.css'
 
@@ -188,53 +188,98 @@ import './App.css'
 // }
 
 //! Методы жизненного цикла классового компонента
-class Clock extends React.Component {
-  constructor(props) {
-    super(props)
-    console.log('#### №1: constructor')
-    this.state = {
-      date: new Date().toLocaleDateString(),
-      time: new Date().toLocaleTimeString(),
-    }
-  }
+// class Clock extends React.Component {
+//   constructor(props) {
+//     super(props)
+//     console.log('#### №1: constructor')
+//     this.state = {
+//       date: new Date().toLocaleDateString(),
+//       time: new Date().toLocaleTimeString(),
+//     }
+//   }
 
-  render() {
-    console.log('#### №2: render')
-    return (
-      <>
-        <div>Дата: {this.state.date}</div>
-        <div>Время: {this.state.time}</div>
-      </>
-    )
-  }
+//   render() {
+//     console.log('#### №2: render')
+//     return (
+//       <>
+//         <div>Дата: {this.state.date}</div>
+//         <div>Время: {this.state.time}</div>
+//       </>
+//     )
+//   }
 
-  shouldComponentUpdate(nextProps, nextState, nextContext) {
-    console.log('#### №4: shouldComponentUpdate old State', this.state)
-    console.log('#### №4: shouldComponentUpdate new State', nextState)
-    return true // shouldComponentUpdate принимает решение стоит ли обновлять наш компонент, в данном случае стоит, так как true
-  }
+//   shouldComponentUpdate(nextProps, nextState, nextContext) {
+//     console.log('#### №4: shouldComponentUpdate old State', this.state)
+//     console.log('#### №4: shouldComponentUpdate new State', nextState)
+//     return true // shouldComponentUpdate принимает решение стоит ли обновлять наш компонент, в данном случае стоит, так как true
+//   }
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    console.log('#### №5: componentDidUpdate', this.state)
+//   componentDidUpdate(prevProps, prevState, snapshot) {
+//     console.log('#### №5: componentDidUpdate', this.state)
 
-  }
+//   }
 
-  componentDidMount() {
-    console.log('#### №3: componentDidMount')
-    this.interval = setInterval(() => {
-      this.setState({
-        time: new Date().toLocaleTimeString(),
-      })
-      console.log(this.state.date, this.state.time)
+//   componentDidMount() {
+//     console.log('#### №3: componentDidMount')
+//     this.interval = setInterval(() => {
+//       this.setState({
+//         time: new Date().toLocaleTimeString(),
+//       })
+//       console.log(this.state.date, this.state.time)
+//     }, 1000)
+//   }
+
+//   componentWillUnmount() {
+//     console.log('#### END: componentWillUnmount')
+//     clearInterval(this.interval)
+//   }
+// }
+
+// export default function App() {
+//   const [clock, setClock] = useState(true)
+//   return (
+//     <div className="App">
+//       <header className="App-header">
+//         {clock && <Clock />}
+//         <button onClick={() => setClock(!clock)}>Show/hide Clock</button>
+//         <div>-</div>
+//         <img
+//           className="Class-component-lifecycle-methods"
+//           src={ClassComponentLifecycleMethods}
+//           alt="ClassComponentLifecycleMethods"
+//         />
+//       </header>
+//     </div>
+//   )
+// }
+
+//! Жизненные фазы функционального компонента
+function Clock() {
+  const [date, setDate] = useState(new Date().toLocaleDateString())
+  const [time, setTime] = useState(new Date().toLocaleTimeString())
+
+  useEffect(() => {
+    console.log('#### №2: componentDidMount')
+    const interval = setInterval(() => {
+      setDate(new Date().toLocaleDateString())
+      setTime(new Date().toLocaleTimeString())
+      console.log('####: date', date, 'time', time)
     }, 1000)
-  }
 
-  componentWillUnmount() {
-    console.log('#### END: componentWillUnmount')
-    clearInterval(this.interval)
-  }
+    return () => {
+      console.log('#### END: componentWillUnmount')
+      clearInterval(interval)
+    }
+  }, [date, time])
+
+  console.log('#### №1: render')
+  return (
+    <>
+      <div>Дата: {date}</div>
+      <div>Время: {time}</div>
+    </>
+  )
 }
-
 export default function App() {
   const [clock, setClock] = useState(true)
   return (
