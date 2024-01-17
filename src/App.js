@@ -295,49 +295,219 @@ import './App.css'
 // }
 
 //! Рендер функционального компонента
-function Clock() {
-  const [time, setTime] = useState(new Date().toLocaleTimeString())
+// function Clock() {
+//   const [time, setTime] = useState(new Date().toLocaleTimeString())
 
-  let name = 'Egor'
-  console.log('## RENDER ##: name', name)
+//   let name = 'Egor'
+//   console.log('## RENDER ##: name', name)
 
-  useEffect(() => {
-    console.log('#### №2: componentDidMount')
-    const interval = setInterval(() => {
-      setTime(new Date().toLocaleTimeString())
-      console.log('## USE EFFECT ##: name', name)
-      name = Date.now()
-      // console.log('## USE EFFECT ##: time', time)
-      console.log('## USE EFFECT ##: name', name)
-    }, 1000)
+//   useEffect(() => {
+//     console.log('#### №2: componentDidMount')
+//     const interval = setInterval(() => {
+//       setTime(new Date().toLocaleTimeString())
+//       console.log('## USE EFFECT ##: name', name)
+//       name = Date.now()
+//       // console.log('## USE EFFECT ##: time', time)
+//       console.log('## USE EFFECT ##: name', name)
+//     }, 1000)
 
-    return () => {
-      console.log('#### END: componentWillUnmount')
-      clearInterval(interval)
-    }
-  }, [time])
+//     return () => {
+//       console.log('#### END: componentWillUnmount')
+//       clearInterval(interval)
+//     }
+//   }, [time])
 
-  console.log('#### №1: render')
-  return (
-    <>
-      <div>Сейчас: {time}</div>
-    </>
-  )
+//   console.log('#### №1: render')
+//   return (
+//     <>
+//       <div>Сейчас: {time}</div>
+//     </>
+//   )
+// }
+// export default function App() {
+//   const [clock, setClock] = useState(true)
+//   return (
+//     <div className="App">
+//       <header className="App-header">
+//         {clock && <Clock />}
+//         <button onClick={() => setClock(!clock)}>Show/hide Clock</button>
+//         <div>-</div>
+//         <img
+//           className="Class-component-logo"
+//           src={RenderFunctionalComponent}
+//           alt="RenderFunctionalComponent"
+//         />
+//       </header>
+//     </div>
+//   )
+// }
+
+//! Условный рендеринг
+// //! Тернарный оператор:
+// function Greeting() {
+//   return <div>Привет!</div>
+// }
+
+// function Bye() {
+//   return <div>Пока!</div>
+// }
+
+// export default function App() {
+//   const [isShow, setIsShow] = useState(true)
+
+//   return (
+//     <div className="App">
+//       <header className="App-header">
+//         {isShow ? <Greeting /> : <Bye />}
+//         <button onClick={() => setIsShow((s) => !s)}>Click</button>
+//       </header>
+//     </div>
+//   )
+// }
+
+// //! Оператор && (И):
+// function Greeting() {
+//   return <div>Привет!</div>
+// }
+
+// function Bye() {
+//   return <div>Пока!</div>
+// }
+
+// export default function App() {
+//   const [isShow, setIsShow] = useState(false)
+//   // const [isShow, setIsShow] = useState(true)
+
+//   return (
+//     <div className="App">
+//       <header className="App-header">
+//         {isShow && <Greeting/>}
+//         <button onClick={() => setIsShow((s) => !s)}>Click</button>
+//       </header>
+//     </div>
+//   )
+// }
+
+// //! Сохраняя в переменную jsx код:
+// function Greeting() {
+//   return <div>Привет!</div>
+// }
+
+// function Bye() {
+//   return <div>Пока!</div>
+// }
+
+// export default function App() {
+//   const [isShow, setIsShow] = useState(false)
+//   // const [isShow, setIsShow] = useState(true)
+
+//   let component
+//   if (isShow) {
+//     component = <Greeting />
+//   } else {
+//     component = <Bye />
+//   }
+
+//   return (
+//     <div className="App">
+//       <header className="App-header">
+//         {component}
+//         <button onClick={() => setIsShow((s) => !s)}>Click</button>
+//       </header>
+//     </div>
+//   )
+// }
+
+// //! Сохраняя в переменную Компоненты:
+// function Greeting() {
+//   return <div>Привет!</div>
+// }
+
+// function Bye() {
+//   return <div>Пока!</div>
+// }
+
+// export default function App() {
+//   const [isShow, setIsShow] = useState(true)
+
+//   let Сomponent
+//   if (isShow) {
+//     Сomponent = Greeting
+//   } else {
+//     Сomponent = Bye
+//   }
+
+//   return (
+//     <div className="App">
+//       <header className="App-header">
+//         {/* <Сomponent {...props}/> */}
+//         <Сomponent />
+//         <button onClick={() => setIsShow((s) => !s)}>Click</button>
+//       </header>
+//     </div>
+//   )
+// }
+
+// //! Подменяя контент:
+// function Greeting() {
+//   return <div>Привет!</div>
+// }
+
+// function Bye() {
+//   return <div>Пока!</div>
+// }
+
+// export default function App() {
+//   const [isShow, setIsShow] = useState(false)
+
+//   if (isShow) {
+//     return <Greeting />
+//   }
+
+//   return (
+//     <div className="App">
+//       <header className="App-header">
+//         <button onClick={() => setIsShow((s) => !s)}>Click</button>
+//       </header>
+//     </div>
+//   )
+// }
+
+//! Используя конструкцию switch case:
+function Greeting() {
+  return <div>Привет!</div>
 }
+
+function Bye() {
+  return <div>Пока!</div>
+}
+
 export default function App() {
-  const [clock, setClock] = useState(true)
-  return (
-    <div className="App">
-      <header className="App-header">
-        {clock && <Clock />}
-        <button onClick={() => setClock(!clock)}>Show/hide Clock</button>
-        <div>-</div>
-        <img
-          className="Class-component-logo"
-          src={RenderFunctionalComponent}
-          alt="RenderFunctionalComponent"
-        />
-      </header>
-    </div>
-  )
+  const [isShow, setIsShow] = useState(undefined)
+
+  switch (isShow) {
+    case true:
+      return (
+        <>
+          <button onClick={() => setIsShow((s) => !s)}>Click</button>
+          <Greeting />
+        </>
+      )
+    case false:
+      return (
+        <>
+          <button onClick={() => setIsShow((s) => !s)}>Click</button>
+          <Bye />
+        </>
+      )
+
+    default:
+      return (
+        <div className="App">
+          <header className="App-header">
+            <button onClick={() => setIsShow((s) => !s)}>Click</button>
+          </header>
+        </div>
+      )
+  }
 }
