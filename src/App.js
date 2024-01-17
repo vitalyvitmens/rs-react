@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import ClassComponentLifecycleMethods from './assets/classComponentLifecycleMethods.jpg'
+import RenderFunctionalComponent from './assets/renderFunctionalComponent.jpg'
 import './App.css'
 
 //! Коллекции и ключи
@@ -244,7 +245,7 @@ import './App.css'
 //         <button onClick={() => setClock(!clock)}>Show/hide Clock</button>
 //         <div>-</div>
 //         <img
-//           className="Class-component-lifecycle-methods"
+//           className="Class-component-logo"
 //           src={ClassComponentLifecycleMethods}
 //           alt="ClassComponentLifecycleMethods"
 //         />
@@ -254,29 +255,72 @@ import './App.css'
 // }
 
 //! Жизненные фазы функционального компонента
+// function Clock() {
+//   const [date, setDate] = useState(new Date().toLocaleDateString())
+//   const [time, setTime] = useState(new Date().toLocaleTimeString())
+
+//   useEffect(() => {
+//     console.log('#### №2: componentDidMount')
+//     const interval = setInterval(() => {
+//       setDate(new Date().toLocaleDateString())
+//       setTime(new Date().toLocaleTimeString())
+//       console.log('####: date', date, 'time', time)
+//     }, 1000)
+
+//     return () => {
+//       console.log('#### END: componentWillUnmount')
+//       clearInterval(interval)
+//     }
+//   }, [date, time])
+
+//   console.log('#### №1: render')
+//   return (
+//     <>
+//       <div>Дата: {date}</div>
+//       <div>Время: {time}</div>
+//     </>
+//   )
+// }
+// export default function App() {
+//   const [clock, setClock] = useState(true)
+//   return (
+//     <div className="App">
+//       <header className="App-header">
+//         {clock && <Clock />}
+//         <button onClick={() => setClock(!clock)}>Show/hide Clock</button>
+//         <div>-</div>
+//       </header>
+//     </div>
+//   )
+// }
+
+//! Рендер функционального компонента
 function Clock() {
-  const [date, setDate] = useState(new Date().toLocaleDateString())
   const [time, setTime] = useState(new Date().toLocaleTimeString())
+
+  let name = 'Egor'
+  console.log('## RENDER ##: name', name)
 
   useEffect(() => {
     console.log('#### №2: componentDidMount')
     const interval = setInterval(() => {
-      setDate(new Date().toLocaleDateString())
       setTime(new Date().toLocaleTimeString())
-      console.log('####: date', date, 'time', time)
+      console.log('## USE EFFECT ##: name', name)
+      name = Date.now()
+      // console.log('## USE EFFECT ##: time', time)
+      console.log('## USE EFFECT ##: name', name)
     }, 1000)
 
     return () => {
       console.log('#### END: componentWillUnmount')
       clearInterval(interval)
     }
-  }, [date, time])
+  }, [time])
 
   console.log('#### №1: render')
   return (
     <>
-      <div>Дата: {date}</div>
-      <div>Время: {time}</div>
+      <div>Сейчас: {time}</div>
     </>
   )
 }
@@ -289,9 +333,9 @@ export default function App() {
         <button onClick={() => setClock(!clock)}>Show/hide Clock</button>
         <div>-</div>
         <img
-          className="Class-component-lifecycle-methods"
-          src={ClassComponentLifecycleMethods}
-          alt="ClassComponentLifecycleMethods"
+          className="Class-component-logo"
+          src={RenderFunctionalComponent}
+          alt="RenderFunctionalComponent"
         />
       </header>
     </div>
