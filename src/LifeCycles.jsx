@@ -25,7 +25,7 @@ import Example from './components/Modal'
 //   )
 // }
 
-// export default function App() {
+// export default function LifeCycles() {
 //   const [items, setItems] = useState(FIELDS)
 
 //   const handleClick = () => {
@@ -106,7 +106,7 @@ import Example from './components/Modal'
 //   )
 // }
 
-// export default function App() {
+// export default function LifeCycles() {
 //   const [cards, setCards] = useState(CARDS)
 
 //   const handleLikeClick = (id) => {
@@ -177,7 +177,7 @@ import Example from './components/Modal'
 //   }
 // }
 
-// export default function App() {
+// export default function LifeCycles() {
 //   const [clock, setClock] = useState(true)
 //   return (
 //     <div className="App">
@@ -237,7 +237,7 @@ import Example from './components/Modal'
 //   }
 // }
 
-// export default function App() {
+// export default function LifeCycles() {
 //   const [clock, setClock] = useState(true)
 //   return (
 //     <div className="App">
@@ -282,7 +282,7 @@ import Example from './components/Modal'
 //     </>
 //   )
 // }
-// export default function App() {
+// export default function LifeCycles() {
 //   const [clock, setClock] = useState(true)
 //   return (
 //     <div className="App">
@@ -325,7 +325,7 @@ import Example from './components/Modal'
 //     </>
 //   )
 // }
-// export default function App() {
+// export default function LifeCycles() {
 //   const [clock, setClock] = useState(true)
 //   return (
 //     <div className="App">
@@ -353,7 +353,7 @@ import Example from './components/Modal'
 //   return <div>Пока!</div>
 // }
 
-// export default function App() {
+// export default function LifeCycles() {
 //   const [isShow, setIsShow] = useState(true)
 
 //   return (
@@ -375,7 +375,7 @@ import Example from './components/Modal'
 //   return <div>Пока!</div>
 // }
 
-// export default function App() {
+// export default function LifeCycles() {
 //   const [isShow, setIsShow] = useState(false)
 //   // const [isShow, setIsShow] = useState(true)
 
@@ -398,7 +398,7 @@ import Example from './components/Modal'
 //   return <div>Пока!</div>
 // }
 
-// export default function App() {
+// export default function LifeCycles() {
 //   const [isShow, setIsShow] = useState(false)
 //   // const [isShow, setIsShow] = useState(true)
 
@@ -428,7 +428,7 @@ import Example from './components/Modal'
 //   return <div>Пока!</div>
 // }
 
-// export default function App() {
+// export default function LifeCycles() {
 //   const [isShow, setIsShow] = useState(true)
 
 //   let Сomponent
@@ -450,29 +450,29 @@ import Example from './components/Modal'
 // }
 
 // //! Подменяя контент:
-// function Greeting() {
-//   return <div>Привет!</div>
-// }
+function Greeting() {
+  return <div>Привет!</div>
+}
 
-// function Bye() {
-//   return <div>Пока!</div>
-// }
+function Bye() {
+  return <div>Пока!</div>
+}
 
-// export default function App() {
-//   const [isShow, setIsShow] = useState(false)
+export default function LifeCycles() {
+  const [isShow, setIsShow] = useState(false)
 
-//   if (isShow) {
-//     return <Greeting />
-//   }
+  if (isShow) {
+    return <Greeting />
+  }
 
-//   return (
-//     <div className="App">
-//       <header className="App-header">
-//         <button onClick={() => setIsShow((s) => !s)}>Click</button>
-//       </header>
-//     </div>
-//   )
-// }
+  return (
+    <div className="App">
+      <header className="App-header">
+        <button onClick={() => setIsShow((s) => !s)}>Click</button>
+      </header>
+    </div>
+  )
+}
 
 //! Используя конструкцию switch case:
 // function Greeting() {
@@ -483,7 +483,7 @@ import Example from './components/Modal'
 //   return <div>Пока!</div>
 // }
 
-// export default function App() {
+// export default function LifeCycles() {
 //   const [isShow, setIsShow] = useState(undefined)
 
 //   switch (isShow) {
@@ -513,13 +513,14 @@ import Example from './components/Modal'
 //   }
 // }
 
-//! Модальное окно
-export default function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <Example />
-      </header>
-    </div>
-  )
-}
+//! Модальное окно библиотекой HeadlessUI
+// export default function LifeCycles() {
+//   return (
+//     <div className="App">
+//       <header className="App-header">
+//         <Example />
+//       </header>
+//     </div>
+//   )
+// }
+

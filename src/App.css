@@ -174,3 +174,30 @@
   border-color: transparent;
   outline: 0px solid transparent;
 }
+
+.App-counter {
+  font-size: 3rem;
+}
+
+.App-wrap {
+  display: flex;
+}
+
+.App-button {
+  display: flex;
+  margin: 5px;
+  border: 2px solid #fff;
+  border-radius: 10px;
+  background-color: transparent;
+  width: 60px;
+  height: 50px;
+  color: #fff;
+  font-size: 3rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.App-arr {
+  color: red;
+  font-size: 1.5rem;
+}
