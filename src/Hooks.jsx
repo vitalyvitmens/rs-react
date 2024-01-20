@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useReducer, useState } from 'react'
+import { useEffect, useLayoutEffect, useReducer, useRef, useState } from 'react'
 
 // Цель урока — получить представление о всех самых важных хуках React и понять, в каких задачах они могут быть полезны.
 // В данном уроке вы узнаете о множестве полезных хуков, таких как:
@@ -154,7 +154,7 @@ import { useEffect, useLayoutEffect, useReducer, useState } from 'react'
 //   )
 // }
 
-// //! useEffect()
+// //! useEffect() - отрабатывает после того как дом дерево показано в браузере
 // //! useEffect отрабатывает после того, когда дом дерево уже сформировано, он уже показал его на экране и готов применить к нему какой то side effect, это очень важное отличие useEffect от componentDidMount - который готов показать jsx код в дом дереве, но еще не показал, а вот useEffect он уже показывает это в дом дереве
 // function Hooks3() {
 //   useEffect(() => {
@@ -225,78 +225,78 @@ import { useEffect, useLayoutEffect, useReducer, useState } from 'react'
 //   )
 // }
 
-//! useLayoutEffect()
-function Hooks2() {
-  useEffect(() => {
-    console.log('## Hooks2 ##: componentDidMount')
+// //! useLayoutEffect() - работает до того как дом дерево показано в браузере
+// function Hooks2() {
+//   useEffect(() => {
+//     console.log('## Hooks2 ##: componentDidMount')
 
-    return () => {
-      console.log('## Hooks2 ##: componentWillUnmount')
-    }
-  }, [])
+//     return () => {
+//       console.log('## Hooks2 ##: componentWillUnmount')
+//     }
+//   }, [])
 
-  return (
-    <>
-      <p>SHOW BOX</p>
-      <h1>Some Title!</h1>
-    </>
-  )
-}
+//   return (
+//     <>
+//       <p>SHOW BOX</p>
+//       <h1>Some Title!</h1>
+//     </>
+//   )
+// }
 
-export default function Hooks() {
-  const [visible, setVisible] = useState(false)
+// export default function Hooks() {
+//   const [visible, setVisible] = useState(false)
 
-  useLayoutEffect(() => {
-    if (!visible) {
-      return
-    }
+//   useLayoutEffect(() => {
+//     if (!visible) {
+//       return
+//     }
 
-    const btnEl = document.getElementById('btn')
-    const { bottom } = btnEl.getBoundingClientRect()
-    const boxEl = document.getElementById('box')
-    boxEl.style.top = `${bottom + 25}px`
-  }, [visible])
+//     const btnEl = document.getElementById('btn')
+//     const { bottom } = btnEl.getBoundingClientRect()
+//     const boxEl = document.getElementById('box')
+//     boxEl.style.top = `${bottom + 25}px`
+//   }, [visible])
 
-  useEffect(() => {
-    console.log('####: useEffect 1')
-  }, [])
+//   useEffect(() => {
+//     console.log('####: useEffect 1')
+//   }, [])
 
-  useLayoutEffect(() => {
-    console.log('####: useLayoutEffect 1')
-  }, [])
+//   useLayoutEffect(() => {
+//     console.log('####: useLayoutEffect 1')
+//   }, [])
 
-  useEffect(() => {
-    console.log('####: useEffect 2')
-  }, [])
+//   useEffect(() => {
+//     console.log('####: useEffect 2')
+//   }, [])
 
-  useLayoutEffect(() => {
-    console.log('####: useLayoutEffect 2')
-  }, [])
+//   useLayoutEffect(() => {
+//     console.log('####: useLayoutEffect 2')
+//   }, [])
 
-  const style = {
-    background: 'black',
-    position: 'relative',
-    top: '10px',
-    padding: '5px 20px',
-  }
+//   const style = {
+//     background: 'black',
+//     position: 'relative',
+//     top: '10px',
+//     padding: '5px 20px',
+//   }
 
-  return (
-    <div className="App">
-      <header className="App-header">
-        <div>
-          <button id="btn" onClick={() => setVisible((s) => !s)}>
-            {visible ? 'Hide' : 'Show'}
-          </button>
-        </div>
-        {visible && (
-          <div style={style} id="box">
-            <Hooks2 />
-          </div>
-        )}
-      </header>
-    </div>
-  )
-}
+//   return (
+//     <div className="App">
+//       <header className="App-header">
+//         <div>
+//           <button id="btn" onClick={() => setVisible((s) => !s)}>
+//             {visible ? 'Hide' : 'Show'}
+//           </button>
+//         </div>
+//         {visible && (
+//           <div style={style} id="box">
+//             <Hooks2 />
+//           </div>
+//         )}
+//       </header>
+//     </div>
+//   )
+// }
 
 // const arr = [1, 1, 2, 3, 4, 4, 5, 6, 6, 7, 7, 8, 9]
 
@@ -316,3 +316,27 @@ export default function Hooks() {
 // }
 
 // console.log(withoutRepeat2(arr)) // [2, 3, 5, 8, 9]
+
+//! useRef() - рендерится только при рендере компонента
+export default function Hooks() {
+  // const ref = useRef(null)
+  // const ref = useRef('Egor')
+  // const ref = useRef({ count: 1 })
+  // const ref = useRef(true)
+  const [count, setCount] = useState(0)
+  const countRef = useRef(0)
+  console.log('####: countRef', countRef)
+
+  return (
+    <div className="App">
+      <header className="App-header">
+        <p>Count state: {count}</p>
+        <p>Count ref {countRef.current}:</p>
+        <button onClick={() => setCount((p) => p + 1)}>Click Count</button>
+        <button onClick={() => (countRef.current = countRef.current + 1)}>
+          Click Count Ref
+        </button>
+      </header>
+    </div>
+  )
+}
