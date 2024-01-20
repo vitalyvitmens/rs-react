@@ -1,0 +1,64 @@
+{
+  "specialties": [
+    {
+      "code": "1",
+      "parent_code": "",
+      "name": "Managers",
+      "child_occupation_codes": [
+        {
+          "code": "11",
+          "parent_code": "1",
+          "name": "Chief Executives, General Managers and Legislators",
+          "child_occupation_codes": [
+            {
+              "code": "111",
+              "parent_code": "11",
+              "name": "Chief Executives, General Managers and Legislators",
+              "child_occupation_codes": [
+                {
+                  "code": "1111",
+                  "parent_code": "111",
+                  "name": "Chief Executives and Managing Directors",
+                  "child_occupation_codes": [
+                    {
+                      "code": "111111",
+                      "parent_code": "1111",
+                      "name": "Chief Executive or Managing Director",
+                      "child_occupation_codes": []
+                    }
+                  ]
+                },
+                {
+                  "code": "1112",
+                  "parent_code": "111",
+                  "name": "General Managers",
+                  "child_occupation_codes": [
+                    {
+                      "code": "111211",
+                      "parent_code": "1112",
+                      "name": "Corporate General Manager",
+                      "child_occupation_codes": []
+                    },
+                    {
+                      "code": "111212",
+                      "parent_code": "1112",
+                      "name": "Defence Force Senior Officer",
+                      "child_occupation_codes": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "id": "bdb3"
+    },
+    {
+      "id": "8424"
+    },
+    {
+      "id": "8aa4"
+    }
+  ]
+}

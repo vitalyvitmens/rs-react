@@ -1,4 +1,4 @@
-import { useEffect, useReducer, useState } from 'react'
+import { useEffect, useLayoutEffect, useReducer, useState } from 'react'
 
 // Цель урока — получить представление о всех самых важных хуках React и понять, в каких задачах они могут быть полезны.
 // В данном уроке вы узнаете о множестве полезных хуков, таких как:
@@ -237,13 +237,41 @@ function Hooks2() {
 
   return (
     <>
-      <h1>This is Title Hooks2!</h1>
+      <p>SHOW BOX</p>
+      <h1>Some Title!</h1>
     </>
   )
 }
 
 export default function Hooks() {
   const [visible, setVisible] = useState(false)
+
+  useLayoutEffect(() => {
+    if (!visible) {
+      return
+    }
+
+    const btnEl = document.getElementById('btn')
+    const { bottom } = btnEl.getBoundingClientRect()
+    const boxEl = document.getElementById('box')
+    boxEl.style.top = `${bottom + 25}px`
+  }, [visible])
+
+  useEffect(() => {
+    console.log('####: useEffect 1')
+  }, [])
+
+  useLayoutEffect(() => {
+    console.log('####: useLayoutEffect 1')
+  }, [])
+
+  useEffect(() => {
+    console.log('####: useEffect 2')
+  }, [])
+
+  useLayoutEffect(() => {
+    console.log('####: useLayoutEffect 2')
+  }, [])
 
   const style = {
     background: 'black',
@@ -256,7 +284,7 @@ export default function Hooks() {
     <div className="App">
       <header className="App-header">
         <div>
-          <button onClick={() => setVisible((s) => !s)}>
+          <button id="btn" onClick={() => setVisible((s) => !s)}>
             {visible ? 'Hide' : 'Show'}
           </button>
         </div>
@@ -269,3 +297,22 @@ export default function Hooks() {
     </div>
   )
 }
+
+// const arr = [1, 1, 2, 3, 4, 4, 5, 6, 6, 7, 7, 8, 9]
+
+// const withoutRepeat = (array) =>
+//   array.filter(
+//     (i) =>
+//       array.reduce((acc, i) => ((acc[i] = (acc[i] || 0) + 1), acc), {})[i] === 1
+//   )
+
+// console.log(withoutRepeat(arr)) // [2, 3, 5, 8, 9]
+
+// const withoutRepeat2 = (array) => {
+//   const freq = {}
+//   array.map((i) => (freq[i] ? freq[i]++ : (freq[i] = 1)))
+
+//   return array.filter((i) => freq[i] === 1)
+// }
+
+// console.log(withoutRepeat2(arr)) // [2, 3, 5, 8, 9]
