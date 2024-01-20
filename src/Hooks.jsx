@@ -317,25 +317,57 @@ import { useEffect, useLayoutEffect, useReducer, useRef, useState } from 'react'
 
 // console.log(withoutRepeat2(arr)) // [2, 3, 5, 8, 9]
 
+// //! useRef() - рендерится только при рендере компонента
+//! Часть №1
+// export default function Hooks() {
+//   // const ref = useRef(null)
+//   // const ref = useRef('Egor')
+//   // const ref = useRef({ count: 1 })
+//   // const ref = useRef(true)
+//   const [count, setCount] = useState(0)
+//   const countRef = useRef(0)
+//   console.log('####: countRef', countRef)
+
+//   return (
+//     <div className="App">
+//       <header className="App-header">
+//         <p>Count state: {count}</p>
+//         <p>Count ref {countRef.current}:</p>
+//         <button onClick={() => setCount((p) => p + 1)}>Click Count</button>
+//         <button onClick={() => (countRef.current = countRef.current + 1)}>
+//           Click Count Ref
+//         </button>
+//       </header>
+//     </div>
+//   )
+// }
+
 //! useRef() - рендерится только при рендере компонента
+//! Часть №2
 export default function Hooks() {
-  // const ref = useRef(null)
-  // const ref = useRef('Egor')
-  // const ref = useRef({ count: 1 })
-  // const ref = useRef(true)
-  const [count, setCount] = useState(0)
-  const countRef = useRef(0)
-  console.log('####: countRef', countRef)
+  const ref = useRef(null)
+  console.log('####: ref', ref)
+
+  const style = {
+    padding: '12px',
+    background: 'red',
+  }
+
+  const handleClick = () => {
+    if (ref.current !== null) {
+      ref.current.style.width = `${ref.current.offsetWidth * 1.05}px`
+    }
+  }
 
   return (
     <div className="App">
       <header className="App-header">
-        <p>Count state: {count}</p>
-        <p>Count ref {countRef.current}:</p>
-        <button onClick={() => setCount((p) => p + 1)}>Click Count</button>
-        <button onClick={() => (countRef.current = countRef.current + 1)}>
-          Click Count Ref
-        </button>
+        <div>
+          <button onClick={handleClick}>Click</button>
+        </div>
+        <div ref={ref} style={style}>
+          Box
+        </div>
       </header>
     </div>
   )
