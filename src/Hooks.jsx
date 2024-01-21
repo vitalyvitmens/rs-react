@@ -1,4 +1,5 @@
 import {
+  useCallback,
   useEffect,
   useLayoutEffect,
   useMemo,
@@ -380,22 +381,82 @@ import {
 //   )
 // }
 
-//! useMemo() - используется для мемоизации значений, которые зависят от других значений, и возвращает их только при изменении этих зависимостей. Это позволяет избежать лишних вычислений и оптимизировать производительность компонентов React.
+// //! useMemo() - используется для мемоизации значений, которые зависят от других значений, и возвращает их только при изменении этих зависимостей. Это позволяет избежать лишних вычислений и оптимизировать производительность компонентов React.
+// export default function Hooks() {
+//   const [number, setNumber] = useState(0)
+//   const [dark, SetDark] = useState(true)
+//   const doubleNumber = useMemo(() => {
+//     return slowFunction(number)
+//   }, [number])
+
+//   const themeDark = useMemo(() => ({
+//     backgroundColor: dark ? '#282c34' : 'white',
+//     color: dark ? 'white' : '#282c34',
+//   }), [dark])
+
+//   useEffect(() => {
+//     console.log('####: Change Theme Dark Constant')
+//   }, [themeDark])
+
+//   return (
+//     <div className="App">
+//       <header className="App-header" style={themeDark}>
+//         <input
+//           type="number"
+//           value={number}
+//           onChange={(e) => setNumber(parseInt(e.target.value))}
+//         />
+//         <button onClick={() => SetDark((s) => !s)}>Change Theme</button>
+//         <div>{doubleNumber}</div>
+//       </header>
+//     </div>
+//   )
+
+//   function slowFunction(number) {
+//     const start = new Date().getTime()
+//     let end = start
+
+//     while (end < start + 500) {
+//       end = new Date().getTime()
+//     }
+
+//     return number * 2
+//   }
+// }
+
+//! useCallback() - мемоизирует функцию и возвращает её только в том случае, если изменится одно из значений, которые переданы в массиве зависимостей. Это позволяет избежать лишнего пересоздания функции при каждом рендеринге компонента и оптимизировать производительность.
+function List({ getItems }) {
+  const [items, setItems] = useState([])
+
+  useEffect(() => {
+    console.log('####: useEffect getItems')
+    setItems(getItems(10))
+  }, [getItems])
+
+  return (
+    <ul>
+      {items.map((items) => (
+        <li key={items}>{items}</li>
+      ))}
+    </ul>
+  )
+}
+
 export default function Hooks() {
   const [number, setNumber] = useState(0)
   const [dark, SetDark] = useState(true)
-  const doubleNumber = useMemo(() => {
-    return slowFunction(number)
-  }, [number])
 
-  const themeDark = useMemo(() => ({
+  const themeDark = {
     backgroundColor: dark ? '#282c34' : 'white',
     color: dark ? 'white' : '#282c34',
-  }), [dark])
+  }
 
-  useEffect(() => {
-    console.log('####: Change Theme Dark Constant')
-  }, [themeDark])
+  const getItems = useCallback(
+    (inc) => {
+      return [number + inc, number + 1 + inc, number + 2 + inc]
+    },
+    [number]
+  )
 
   return (
     <div className="App">
@@ -406,19 +467,10 @@ export default function Hooks() {
           onChange={(e) => setNumber(parseInt(e.target.value))}
         />
         <button onClick={() => SetDark((s) => !s)}>Change Theme</button>
-        <div>{doubleNumber}</div>
+        <div>
+          <List getItems={getItems} />
+        </div>
       </header>
     </div>
   )
-
-  function slowFunction(number) {
-    const start = new Date().getTime()
-    let end = start
-
-    while (end < start + 500) {
-      end = new Date().getTime()
-    }
-
-    return number * 2
-  }
 }
