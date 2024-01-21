@@ -1,5 +1,6 @@
 import {
   useCallback,
+  useDeferredValue,
   useEffect,
   useLayoutEffect,
   useMemo,
@@ -511,35 +512,38 @@ import {
 //   )
 // }
 
-//! useDeferredValue() -
-const LIST_SIZE = 10000
+//! useDeferredValue() - позволяет отложить обновление некоторых значений, которые зависят от других значений, и возвращать их старые версии, пока не будет готово новое обновление. Это позволяет избежать нежелательных перерисовок компонентов и улучшить взаимодействие с пользователем.                   Отличие хука useDeferredValue от useTransition в том, что useDeferredValue не создает переход, а просто возвращает старое значение, пока не будет готово новое. Это означает, что useDeferredValue не позволяет показывать индикатор загрузки или анимацию перехода, как это делает useTransition. Но useDeferredValue может быть полезен, когда ты хочешь отложить обновление некритичных частей интерфейса, например, текста или изображений.
+const LIST_SIZE = 20000
+
+function List({ input }) {
+  const deferredInput = useDeferredValue(input)
+  console.log('####: input', input)
+  console.log('####: deferredInput', deferredInput)
+
+  const list = useMemo(() => {
+    const l = []
+    for (let i = 0; i < LIST_SIZE; i++) {
+      l.push(<div key={i}>{input}</div>)
+    }
+    return l
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [deferredInput])
+
+  return <div>{list}</div>
+}
 
 export default function Hooks() {
   const [input, setInput] = useState('')
-  const [list, setList] = useState([])
-  const [isPending, startTransition] = useTransition()
 
   const handleChange = (e) => {
     setInput(e.target.value)
-
-    startTransition(() => {
-      const l = []
-      for (let i = 0; i < LIST_SIZE; i++) {
-        l.push(e.target.value)
-      }
-      setList(l)
-    })
   }
 
   return (
     <div className="App">
       <header className="App-header">
         <input type="text" value={input} onChange={handleChange} />
-        <div>
-          {isPending
-            ? 'Loading...'
-            : list.map((item, index) => <div key={index}>{item}</div>)}
-        </div>
+        <List input={input} />
       </header>
     </div>
   )
