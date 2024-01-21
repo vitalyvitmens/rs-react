@@ -6,6 +6,7 @@ import {
   useReducer,
   useRef,
   useState,
+  useTransition,
 } from 'react'
 
 // Цель урока — получить представление о всех самых важных хуках React и понять, в каких задачах они могут быть полезны.
@@ -424,51 +425,120 @@ import {
 //   }
 // }
 
-//! useCallback() - мемоизирует функцию и возвращает её только в том случае, если изменится одно из значений, которые переданы в массиве зависимостей. Это позволяет избежать лишнего пересоздания функции при каждом рендеринге компонента и оптимизировать производительность.
-function List({ getItems }) {
-  const [items, setItems] = useState([])
+// //! useCallback() - мемоизирует функцию и возвращает её только в том случае, если изменится одно из значений, которые переданы в массиве зависимостей. Это позволяет избежать лишнего пересоздания функции при каждом рендеринге компонента и оптимизировать производительность.
+// function List({ getItems }) {
+//   const [items, setItems] = useState([])
 
-  useEffect(() => {
-    console.log('####: useEffect getItems')
-    setItems(getItems(10))
-  }, [getItems])
+//   useEffect(() => {
+//     console.log('####: useEffect getItems')
+//     setItems(getItems(10))
+//   }, [getItems])
 
-  return (
-    <ul>
-      {items.map((items) => (
-        <li key={items}>{items}</li>
-      ))}
-    </ul>
-  )
-}
+//   return (
+//     <ul>
+//       {items.map((items) => (
+//         <li key={items}>{items}</li>
+//       ))}
+//     </ul>
+//   )
+// }
+
+// export default function Hooks() {
+//   const [number, setNumber] = useState(0)
+//   const [dark, SetDark] = useState(true)
+
+//   const themeDark = {
+//     backgroundColor: dark ? '#282c34' : 'white',
+//     color: dark ? 'white' : '#282c34',
+//   }
+
+//   const getItems = useCallback(
+//     (inc) => {
+//       return [number + inc, number + 1 + inc, number + 2 + inc]
+//     },
+//     [number]
+//   )
+
+//   return (
+//     <div className="App">
+//       <header className="App-header" style={themeDark}>
+//         <input
+//           type="number"
+//           value={number}
+//           onChange={(e) => setNumber(parseInt(e.target.value))}
+//         />
+//         <button onClick={() => SetDark((s) => !s)}>Change Theme</button>
+//         <div>
+//           <List getItems={getItems} />
+//         </div>
+//       </header>
+//     </div>
+//   )
+// }
+
+// //! useTransition() - позволяет указать, что некоторые обновления состояния имеют низкий приоритет и могут быть отложены или прерваны другими обновлениями. Это позволяет оптимизировать производительность и улучшить взаимодействие с пользователем.
+
+// const LIST_SIZE = 10000
+
+// export default function Hooks() {
+//   const [input, setInput] = useState('')
+//   const [list, setList] = useState([])
+//   const [isPending, startTransition] = useTransition()
+
+//   const handleChange = (e) => {
+//     setInput(e.target.value)
+
+//     startTransition(() => {
+//       const l = []
+//       for (let i = 0; i < LIST_SIZE; i++) {
+//         l.push(e.target.value)
+//       }
+//       setList(l)
+//     })
+//   }
+
+//   return (
+//     <div className="App">
+//       <header className="App-header">
+//         <input type="text" value={input} onChange={handleChange} />
+//         <div>
+//           {isPending
+//             ? 'Loading...'
+//             : list.map((item, index) => <div key={index}>{item}</div>)}
+//         </div>
+//       </header>
+//     </div>
+//   )
+// }
+
+//! useDeferredValue() -
+const LIST_SIZE = 10000
 
 export default function Hooks() {
-  const [number, setNumber] = useState(0)
-  const [dark, SetDark] = useState(true)
+  const [input, setInput] = useState('')
+  const [list, setList] = useState([])
+  const [isPending, startTransition] = useTransition()
 
-  const themeDark = {
-    backgroundColor: dark ? '#282c34' : 'white',
-    color: dark ? 'white' : '#282c34',
+  const handleChange = (e) => {
+    setInput(e.target.value)
+
+    startTransition(() => {
+      const l = []
+      for (let i = 0; i < LIST_SIZE; i++) {
+        l.push(e.target.value)
+      }
+      setList(l)
+    })
   }
-
-  const getItems = useCallback(
-    (inc) => {
-      return [number + inc, number + 1 + inc, number + 2 + inc]
-    },
-    [number]
-  )
 
   return (
     <div className="App">
-      <header className="App-header" style={themeDark}>
-        <input
-          type="number"
-          value={number}
-          onChange={(e) => setNumber(parseInt(e.target.value))}
-        />
-        <button onClick={() => SetDark((s) => !s)}>Change Theme</button>
+      <header className="App-header">
+        <input type="text" value={input} onChange={handleChange} />
         <div>
-          <List getItems={getItems} />
+          {isPending
+            ? 'Loading...'
+            : list.map((item, index) => <div key={index}>{item}</div>)}
         </div>
       </header>
     </div>
