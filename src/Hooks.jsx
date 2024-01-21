@@ -1,4 +1,11 @@
-import { useEffect, useLayoutEffect, useReducer, useRef, useState } from 'react'
+import {
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useReducer,
+  useRef,
+  useState,
+} from 'react'
 
 // Цель урока — получить представление о всех самых важных хуках React и понять, в каких задачах они могут быть полезны.
 // В данном уроке вы узнаете о множестве полезных хуков, таких как:
@@ -342,33 +349,76 @@ import { useEffect, useLayoutEffect, useReducer, useRef, useState } from 'react'
 //   )
 // }
 
-//! useRef() - рендерится только при рендере компонента
-//! Часть №2
+// //! useRef() - рендерится только при рендере компонента
+// //! Часть №2
+// export default function Hooks() {
+//   const ref = useRef(null)
+//   console.log('####: ref', ref)
+
+//   const style = {
+//     padding: '12px',
+//     background: 'red',
+//   }
+
+//   const handleClick = () => {
+//     if (ref.current !== null) {
+//       ref.current.style.width = `${ref.current.offsetWidth * 1.05}px`
+//     }
+//   }
+
+//   return (
+//     <div className="App">
+//       <header className="App-header">
+//         <div>
+//           <button onClick={handleClick}>Click</button>
+//         </div>
+//         <div ref={ref} style={style}>
+//           Box
+//         </div>
+//       </header>
+//     </div>
+//   )
+// }
+
+//! useMemo() - используется для мемоизации значений, которые зависят от других значений, и возвращает их только при изменении этих зависимостей. Это позволяет избежать лишних вычислений и оптимизировать производительность компонентов React.
 export default function Hooks() {
-  const ref = useRef(null)
-  console.log('####: ref', ref)
+  const [number, setNumber] = useState(0)
+  const [dark, SetDark] = useState(true)
+  const doubleNumber = useMemo(() => {
+    return slowFunction(number)
+  }, [number])
 
-  const style = {
-    padding: '12px',
-    background: 'red',
-  }
+  const themeDark = useMemo(() => ({
+    backgroundColor: dark ? '#282c34' : 'white',
+    color: dark ? 'white' : '#282c34',
+  }), [dark])
 
-  const handleClick = () => {
-    if (ref.current !== null) {
-      ref.current.style.width = `${ref.current.offsetWidth * 1.05}px`
-    }
-  }
+  useEffect(() => {
+    console.log('####: Change Theme Dark Constant')
+  }, [themeDark])
 
   return (
     <div className="App">
-      <header className="App-header">
-        <div>
-          <button onClick={handleClick}>Click</button>
-        </div>
-        <div ref={ref} style={style}>
-          Box
-        </div>
+      <header className="App-header" style={themeDark}>
+        <input
+          type="number"
+          value={number}
+          onChange={(e) => setNumber(parseInt(e.target.value))}
+        />
+        <button onClick={() => SetDark((s) => !s)}>Change Theme</button>
+        <div>{doubleNumber}</div>
       </header>
     </div>
   )
+
+  function slowFunction(number) {
+    const start = new Date().getTime()
+    let end = start
+
+    while (end < start + 500) {
+      end = new Date().getTime()
+    }
+
+    return number * 2
+  }
 }
