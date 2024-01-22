@@ -13,6 +13,7 @@ import { UseLocalStorage } from './useLocalStorage'
 import { useUpdateLogger } from './useUpdateLogger'
 import { UseToggle } from './useToggle'
 import { useTimeout } from './useTimeout'
+import { useDebounce } from './useDebounce'
 
 // Цель урока — научиться создавать и использовать пользовательские (кастомные) хуки в React для повторного использования логики в компонентах.
 
@@ -61,21 +62,58 @@ import { useTimeout } from './useTimeout'
 //   )
 // }
 
-//! useTimeout() -
+// //! useTimeout() - позволяет вызывать функцию обратного вызова (callback) через определенный промежуток времени (delay) и управлять этим процессом с помощью функций reset и clear. Это полезно, когда нужно выполнить какое-то действие после задержки, например, обнулить счетчик или показать сообщение.
+// export default function CustomHooks() {
+//   const [count, setCount] = useState(10)
+
+//   const { reset, clear } = useTimeout(() => {
+//     setCount(0)
+//   }, 1000)
+
+//   return (
+//     <div className="App">
+//       <header className="App-header">
+//         <p>{count}</p>
+//         <button onClick={() => setCount((p) => p + 1)}>Increment</button>
+//         <button onClick={() => clear()}>Stop Timeout</button>
+//         <button onClick={() => reset()}>Start Timeout</button>
+//       </header>
+//     </div>
+//   )
+// }
+
+//! useDebounce() - позволяет откладывать вызов функции обратного вызова (callback) до тех пор, пока не пройдет определенный промежуток времени (delay) с момента последнего изменения зависимостей (dependencies). Это полезно, когда ты хочешь избежать частых и ненужных запросов к API или других дорогостоящих операций, которые должны происходить только при стабилизации ввода или состояния.
 export default function CustomHooks() {
   const [count, setCount] = useState(10)
+  const [value, setValue] = useState('')
 
-  const { reset, clear } = useTimeout(() => {
-    setCount(0)
-  }, 1000)
+  // useDebounce(
+  //   () => {
+  //     alert(count)
+  //   },
+  //   1000,
+  //   [count]
+  // )
+
+  useDebounce(
+    () => {
+      console.log('####: Запроси мне API', value)
+    },
+    1000,
+    [value]
+  )
 
   return (
     <div className="App">
       <header className="App-header">
         <p>{count}</p>
+        <input
+          id="text"
+          type="text"
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+        />
         <button onClick={() => setCount((p) => p + 1)}>Increment</button>
-        <button onClick={() => clear()}>Stop Timeout</button>
-        <button onClick={() => reset()}>Start Timeout</button>
       </header>
     </div>
   )
