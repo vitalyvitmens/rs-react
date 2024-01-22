@@ -9,9 +9,10 @@ import {
   useState,
   useTransition,
 } from 'react'
-import { UseLocalStorage } from './UseLocalStorage'
+import { UseLocalStorage } from './useLocalStorage'
 import { useUpdateLogger } from './useUpdateLogger'
-import { UseToggle } from './UseToggle'
+import { UseToggle } from './useToggle'
+import { useTimeout } from './useTimeout'
 
 // Цель урока — научиться создавать и использовать пользовательские (кастомные) хуки в React для повторного использования логики в компонентах.
 
@@ -45,16 +46,36 @@ import { UseToggle } from './UseToggle'
 //   )
 // }
 
-//! useToggle() - позволяет переключать значение между true и false с помощью функции setState. Это полезно, когда хочешь управлять состоянием, которое может быть включено или выключено, например: показать или скрыть элемент, включить или выключить режим, активировать или деактивировать опцию.
+// //! useToggle() - позволяет переключать значение между true и false с помощью функции setState. Это полезно, когда хочешь управлять состоянием, которое может быть включено или выключено, например: показать или скрыть элемент, включить или выключить режим, активировать или деактивировать опцию.
+// export default function CustomHooks() {
+//   const [state, setState] = UseToggle(false)
+//   return (
+//     <div className="App">
+//       <header className="App-header">
+//         <p>{state.toString()}</p>
+//         <button onClick={() => setState()}>Toggle</button>
+//         <button onClick={() => setState(true)}>Set True</button>
+//         <button onClick={() => setState(false)}>Set False</button>
+//       </header>
+//     </div>
+//   )
+// }
+
+//! useTimeout() -
 export default function CustomHooks() {
-  const [state, setState] = UseToggle(false)
+  const [count, setCount] = useState(10)
+
+  const { reset, clear } = useTimeout(() => {
+    setCount(0)
+  }, 1000)
+
   return (
     <div className="App">
       <header className="App-header">
-        <p>{state.toString()}</p>
-        <button onClick={() => setState()}>Toggle</button>
-        <button onClick={() => setState(true)}>Set True</button>
-        <button onClick={() => setState(false)}>Set False</button>
+        <p>{count}</p>
+        <button onClick={() => setCount((p) => p + 1)}>Increment</button>
+        <button onClick={() => clear()}>Stop Timeout</button>
+        <button onClick={() => reset()}>Start Timeout</button>
       </header>
     </div>
   )
