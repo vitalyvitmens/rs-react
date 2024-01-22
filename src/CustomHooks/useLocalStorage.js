@@ -10,7 +10,7 @@ function getValueStorage(key, initialState) {
     : initialState
 }
 
-export function UseLocalStorage(key, initialState) {
+export function useLocalStorage(key, initialState) {
   const [value, setValue] = useState(() => getValueStorage(key, initialState))
 
   useEffect(() => {

@@ -210,3 +210,16 @@
   color: green;
 }
 
+li {
+  text-align: start;
+  font-size: 1.5rem;
+  color: rgb(249, 157, 147);
+}
+
+input {
+  width: 30%;
+  height: 2rem;
+  font-size: 1.75rem;
+  padding: 0 10px;
+  border-radius: 5px;
+}
