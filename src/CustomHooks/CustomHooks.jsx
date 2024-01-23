@@ -17,6 +17,7 @@ import { useDebounce } from './useDebounce'
 import { useInput } from './useInput'
 import { useFetch } from './useFetch'
 import { useUpdateEffect } from './useUpdateEffect'
+import { useArray } from './useArray'
 
 // Цель урока — научиться создавать и использовать пользовательские (кастомные) хуки в React для повторного использования логики в компонентах.
 
@@ -180,20 +181,72 @@ import { useUpdateEffect } from './useUpdateEffect'
 //   )
 // }
 
-//! useUpdateEffect - это модифицированная версия хука useEffect, которая пропускает первый рендер, полезен, когда нужно выполнить какое-то действие только при обновлении компонента, а не при его монтировании.
-export default function CustomHooks() {
-  const [count, setCount] = useState(10)
+// //! useUpdateEffect - это модифицированная версия хука useEffect, которая пропускает первый рендер, полезен, когда нужно выполнить какое-то действие только при обновлении компонента, а не при его монтировании.
+// export default function CustomHooks() {
+//   const [count, setCount] = useState(10)
 
-  useUpdateEffect(() => {
-    alert(count)
-  }, [count])
+//   useUpdateEffect(() => {
+//     alert(count)
+//   }, [count])
+
+//   return (
+//     <div className="App">
+//       <header className="App-header">
+//         <p>{count}</p>
+//         <button onClick={() => setCount((p) => p + 1)}>Increment</button>
+//         <button onClick={() => setCount((p) => p - 1)}>Decrement</button>
+//       </header>
+//     </div>
+//   )
+// }
+
+//! useArray -
+export default function CustomHooks() {
+  const [values, { push, update, clear, remove, filter }] = useArray([
+    10, 2, 3, 4, 5, 6, 7,
+  ])
+
+  const isEven = useCallback((value) => value % 2 === 0, [])
+  const isOdd = useCallback((value) => value % 2 !== 0, [])
+  const ascendingFiltering = useCallback((value, index, array) => {
+    // если это первый элемент, то вернуть true
+    if (index === 0) return true
+    // иначе сравнить значение с предыдущим и вернуть true, если оно больше или равно
+    return value >= array[index - 1]
+  }, [])
+  const descendingFiltering = useCallback((value, index, array) => {
+    // если это первый элемент, то вернуть true
+    if (index === 0) return true
+    // иначе сравнить значение с предыдущим и вернуть true, если оно меньше или равно
+    return value <= array[index - 1]
+  }, [])
 
   return (
     <div className="App">
       <header className="App-header">
-        <p>{count}</p>
-        <button onClick={() => setCount((p) => p + 1)}>Increment</button>
-        <button onClick={() => setCount((p) => p - 1)}>Decrement</button>
+        <p>[{values.join(', ')}]</p>
+        <button onClick={() => push(values.length)}>push</button>
+        <button onClick={() => update(3, 77)}>update 4 element to 77</button>
+        <button onClick={() => update(0, 77)}>
+          update first element to 77
+        </button>
+        <button onClick={() => update(values.length - 1, 77)}>
+          update last element to 77
+        </button>
+        <button onClick={() => clear()}>clear</button>
+        <button onClick={() => remove(0)}>remove first element</button>
+        <button onClick={() => remove(values.length - 1)}>
+          remove last element
+        </button>
+        <button onClick={() => remove(3)}>remove 4 element</button>
+        <button onClick={() => filter(isEven)}>filter isEven</button>
+        <button onClick={() => filter(isOdd)}>filter isOdd</button>
+        <button onClick={() => filter(ascendingFiltering)}>
+          filter ascending
+        </button>
+        <button onClick={() => filter(descendingFiltering)}>
+          filter descending
+        </button>
       </header>
     </div>
   )
