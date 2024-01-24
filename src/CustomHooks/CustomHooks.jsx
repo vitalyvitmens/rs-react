@@ -141,46 +141,46 @@ import { useThrottle } from './useThrottle'
 //   )
 // }
 
-// //! useFetch - Функция useFetch принимает два параметра: url и options:       1). url - это адрес, по которому будет отправлен запрос                        2). options - это объект, содержащий дополнительные параметры запроса, такие как метод, заголовки, тело и т.д. Вывод данных с фильтрацией по ключу name.
-// export default function CustomHooks() {
-//   const input = useInput()
-//   const { data, error, loading } = useFetch(
-//     'https://jsonplaceholder.typicode.com/users'
-//   )
+//! useFetch - Функция useFetch принимает два параметра: url и options:       1). url - это адрес, по которому будет отправлен запрос                        2). options - это объект, содержащий дополнительные параметры запроса, такие как метод, заголовки, тело и т.д. Вывод данных с фильтрацией по ключу name.
+export default function CustomHooks() {
+  const input = useInput()
+  const { data, error, loading } = useFetch(
+    'https://jsonplaceholder.typicode.com/users'
+  )
 
-//   return (
-//     <div className="App">
-//       <header className="App-header">
-//         <input id="filter" type="text" {...input} />
-//         <h4 style={{ color: 'green' }}>input.value: {input.value}</h4>
-//         {loading && <p style={{ fontSize: '5rem' }}>Loading...</p>}
-//         {error && <p style={{ color: 'red', fontSize: '3rem' }}>Error</p>}
-//         {data && (
-//           <ul>
-//             {data
-//               .filter((user) =>
-//                 user.name.toLowerCase().includes(input.value.toLowerCase())
-//               )
-//               .map((user, index) => (
-//                 <li key={user.id}>
-//                   №{index + 1} id:{user.id} {user.name}
-//                   <p style={{ color: 'gray' }}>
-//                     username: {user.username}
-//                     <br />
-//                     email: {user.email}
-//                     <br />
-//                     city: {user.address.city}
-//                     <br />
-//                     street: {user.address.street}
-//                   </p>
-//                 </li>
-//               ))}
-//           </ul>
-//         )}
-//       </header>
-//     </div>
-//   )
-// }
+  return (
+    <div className="App">
+      <header className="App-header">
+        <input id="filter" type="text" {...input} />
+        <h4 style={{ color: 'green' }}>input.value: {input.value}</h4>
+        {loading && <p style={{ fontSize: '5rem' }}>Loading...</p>}
+        {error && <p style={{ color: 'red', fontSize: '3rem' }}>Error</p>}
+        {data && (
+          <ul>
+            {data
+              .filter((user) =>
+                user.name.toLowerCase().includes(input.value.toLowerCase())
+              )
+              .map((user, index) => (
+                <li key={user.id}>
+                  №{index + 1} id:{user.id} {user.name}
+                  <p style={{ color: 'gray' }}>
+                    username: {user.username}
+                    <br />
+                    email: {user.email}
+                    <br />
+                    city: {user.address.city}
+                    <br />
+                    street: {user.address.street}
+                  </p>
+                </li>
+              ))}
+          </ul>
+        )}
+      </header>
+    </div>
+  )
+}
 
 // //! useUpdateEffect - это модифицированная версия хука useEffect, которая пропускает первый рендер, полезен, когда нужно выполнить какое-то действие только при обновлении компонента, а не при его монтировании.
 // export default function CustomHooks() {
@@ -281,23 +281,23 @@ import { useThrottle } from './useThrottle'
 //   )
 // }
 
-//! useThrottle - позволяет управлять частотой выполнения setState и других обратных вызовов, он принимает значение и необязательный интервал в миллисекундах и гарантирует, что значение обновляется не чаще, чем каждые интервал миллисекунд. Это может быть полезно для ограничения API-запросов, сокращения обновлений UI или устранения проблем с производительностью, замедляя вычислительно сложные операции.
-export default function CustomHooks() {
-  const [value, setValue] = useState('')
+// //! useThrottle - позволяет управлять частотой выполнения setState и других обратных вызовов, он принимает значение и необязательный интервал в миллисекундах и гарантирует, что значение обновляется не чаще, чем каждые интервал миллисекунд. Это может быть полезно для ограничения API-запросов, сокращения обновлений UI или устранения проблем с производительностью, замедляя вычислительно сложные операции.
+// export default function CustomHooks() {
+//   const [value, setValue] = useState('')
 
-  const throttleValue = useThrottle(value, 1000)
+//   const throttleValue = useThrottle(value, 1000)
 
-  return (
-    <div className="App">
-      <header className="App-header">
-        <input
-          id="text"
-          type="text"
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
-        />
-        <p>{throttleValue}</p>
-      </header>
-    </div>
-  )
-}
+//   return (
+//     <div className="App">
+//       <header className="App-header">
+//         <input
+//           id="text"
+//           type="text"
+//           value={value}
+//           onChange={(e) => setValue(e.target.value)}
+//         />
+//         <p>{throttleValue}</p>
+//       </header>
+//     </div>
+//   )
+// }
