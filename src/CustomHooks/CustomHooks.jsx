@@ -202,24 +202,47 @@ import { useArray } from './useArray'
 
 //! useArray -
 export default function CustomHooks() {
-  const [values, { push, update, clear, remove, filter }] = useArray([
-    10, 2, 3, 4, 5, 6, 7,
+  const [values, { push, update, clear, remove, filter, sort }] = useArray([
+    10, 2, 3, 8, 1, 4, 5, 6, 7, 9,
   ])
 
   const isEven = useCallback((value) => value % 2 === 0, [])
   const isOdd = useCallback((value) => value % 2 !== 0, [])
-  const ascendingFiltering = useCallback((value, index, array) => {
-    // если это первый элемент, то вернуть true
-    if (index === 0) return true
-    // иначе сравнить значение с предыдущим и вернуть true, если оно больше или равно
-    return value >= array[index - 1]
+  const sortAscending = useCallback((a, b) => a - b, [])
+  const sortDescending = useCallback((a, b) => b - a, [])
+
+  let set = useMemo(() => new Set(), [])
+  const removingDuplicatesExceptOne = useCallback(
+    (value) => !set.has(value) && set.add(value),
+    [set]
+  )
+
+  const removingDuplicates = useCallback((value, index, array) => {
+    let map = new Map()
+    for (let element of array) {
+      if (map.has(element)) {
+        map.set(element, map.get(element) + 1)
+      } else {
+        map.set(element, 1)
+      }
+    }
+    return map.get(value) === 1
   }, [])
-  const descendingFiltering = useCallback((value, index, array) => {
-    // если это первый элемент, то вернуть true
-    if (index === 0) return true
-    // иначе сравнить значение с предыдущим и вернуть true, если оно меньше или равно
-    return value <= array[index - 1]
-  }, [])
+
+  const removingAllElementsExceptDuplicates = useCallback(
+    (value, index, array) => {
+      let map = new Map()
+      for (let element of array) {
+        if (map.has(element)) {
+          map.set(element, map.get(element) + 1)
+        } else {
+          map.set(element, 1)
+        }
+      }
+      return map.get(value) !== 1
+    },
+    []
+  )
 
   return (
     <div className="App">
@@ -241,11 +264,16 @@ export default function CustomHooks() {
         <button onClick={() => remove(3)}>remove 4 element</button>
         <button onClick={() => filter(isEven)}>filter isEven</button>
         <button onClick={() => filter(isOdd)}>filter isOdd</button>
-        <button onClick={() => filter(ascendingFiltering)}>
-          filter ascending
+        <button onClick={() => sort(sortAscending)}>sort ascending</button>
+        <button onClick={() => sort(sortDescending)}>sort descending</button>
+        <button onClick={() => filter(removingDuplicatesExceptOne)}>
+          removing duplicates except one
         </button>
-        <button onClick={() => filter(descendingFiltering)}>
-          filter descending
+        <button onClick={() => filter(removingDuplicates)}>
+          removing duplicates
+        </button>
+        <button onClick={() => filter(removingAllElementsExceptDuplicates)}>
+          removing all elements except duplicates
         </button>
       </header>
     </div>

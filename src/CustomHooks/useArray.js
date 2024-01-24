@@ -30,5 +30,9 @@ export function useArray(defaultValue) {
     setArray((prevState) => prevState.filter(callback))
   }
 
-  return [array, { push, update, clear, remove, filter }]
+  function sort(callback) {
+    setArray((prevState) => [...prevState].sort(callback))
+  }
+
+  return [array, { push, update, clear, remove, filter, sort }]
 }
