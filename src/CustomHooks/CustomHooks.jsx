@@ -11,7 +11,7 @@ import {
 } from 'react'
 import { UseLocalStorage } from './useLocalStorage'
 import { useUpdateLogger } from './useUpdateLogger'
-import { UseToggle } from './useToggle'
+import { useToggle } from './useToggle'
 import { useTimeout } from './useTimeout'
 import { useDebounce } from './useDebounce'
 import { useInput } from './useInput'
@@ -54,7 +54,7 @@ import { useThrottle } from './useThrottle'
 
 // //! useToggle() - позволяет переключать значение между true и false с помощью функции setState. Это полезно, когда хочешь управлять состоянием, которое может быть включено или выключено, например: показать или скрыть элемент, включить или выключить режим, активировать или деактивировать опцию.
 // export default function CustomHooks() {
-//   const [state, setState] = UseToggle(false)
+//   const [state, setState] = useToggle(false)
 //   return (
 //     <div className="App">
 //       <header className="App-header">
