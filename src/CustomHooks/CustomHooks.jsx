@@ -18,6 +18,7 @@ import { useInput } from './useInput'
 import { useFetch } from './useFetch'
 import { useUpdateEffect } from './useUpdateEffect'
 import { useArray } from './useArray'
+import { useThrottle } from './useThrottle'
 
 // Цель урока — научиться создавать и использовать пользовательские (кастомные) хуки в React для повторного использования логики в компонентах.
 
@@ -200,81 +201,102 @@ import { useArray } from './useArray'
 //   )
 // }
 
-//! useArray -
+//! useArray - применяется для управления массивом, позволяет выполнять различные операции над массивом, такие как добавление, обновление, очистка, удаление, фильтрация и сортировка элементов, возвращает текущий массив и объект с методами для этих операций. Полезен, когда нужно работать с массивом данных в своем приложении и избежать сложности и повторения кода, помогает оптимизировать производительность компонента используя хуки useState и useEffect для обновления и очистки состояния.
+// export default function CustomHooks() {
+//   const [values, { push, update, clear, remove, filter, sort }] = useArray([
+//     10, 2, 3, 8, 1, 4, 5, 6, 7, 9,
+//   ])
+
+//   const isEven = useCallback((value) => value % 2 === 0, [])
+//   const isOdd = useCallback((value) => value % 2 !== 0, [])
+//   const sortAscending = useCallback((a, b) => a - b, [])
+//   const sortDescending = useCallback((a, b) => b - a, [])
+
+//   let set = useMemo(() => new Set(), [])
+//   const removingDuplicatesExceptOne = useCallback(
+//     (value) => !set.has(value) && set.add(value),
+//     [set]
+//   )
+
+//   const removingDuplicates = useCallback((value, index, array) => {
+//     let map = new Map()
+//     for (let element of array) {
+//       if (map.has(element)) {
+//         map.set(element, map.get(element) + 1)
+//       } else {
+//         map.set(element, 1)
+//       }
+//     }
+//     return map.get(value) === 1
+//   }, [])
+
+//   const removingAllElementsExceptDuplicates = useCallback(
+//     (value, index, array) => {
+//       let map = new Map()
+//       for (let element of array) {
+//         if (map.has(element)) {
+//           map.set(element, map.get(element) + 1)
+//         } else {
+//           map.set(element, 1)
+//         }
+//       }
+//       return map.get(value) !== 1
+//     },
+//     []
+//   )
+
+//   return (
+//     <div className="App">
+//       <header className="App-header">
+//         <p>[{values.join(', ')}]</p>
+//         <button onClick={() => push(values.length)}>push</button>
+//         <button onClick={() => update(3, 77)}>update 4 element to 77</button>
+//         <button onClick={() => update(0, 77)}>
+//           update first element to 77
+//         </button>
+//         <button onClick={() => update(values.length - 1, 77)}>
+//           update last element to 77
+//         </button>
+//         <button onClick={() => clear()}>clear</button>
+//         <button onClick={() => remove(0)}>remove first element</button>
+//         <button onClick={() => remove(values.length - 1)}>
+//           remove last element
+//         </button>
+//         <button onClick={() => remove(3)}>remove 4 element</button>
+//         <button onClick={() => filter(isEven)}>filter isEven</button>
+//         <button onClick={() => filter(isOdd)}>filter isOdd</button>
+//         <button onClick={() => sort(sortAscending)}>sort ascending</button>
+//         <button onClick={() => sort(sortDescending)}>sort descending</button>
+//         <button onClick={() => filter(removingDuplicatesExceptOne)}>
+//           removing duplicates except one
+//         </button>
+//         <button onClick={() => filter(removingDuplicates)}>
+//           removing duplicates
+//         </button>
+//         <button onClick={() => filter(removingAllElementsExceptDuplicates)}>
+//           removing all elements except duplicates
+//         </button>
+//       </header>
+//     </div>
+//   )
+// }
+
+//! useThrottle - позволяет управлять частотой выполнения setState и других обратных вызовов, он принимает значение и необязательный интервал в миллисекундах и гарантирует, что значение обновляется не чаще, чем каждые интервал миллисекунд. Это может быть полезно для ограничения API-запросов, сокращения обновлений UI или устранения проблем с производительностью, замедляя вычислительно сложные операции.
 export default function CustomHooks() {
-  const [values, { push, update, clear, remove, filter, sort }] = useArray([
-    10, 2, 3, 8, 1, 4, 5, 6, 7, 9,
-  ])
+  const [value, setValue] = useState('')
 
-  const isEven = useCallback((value) => value % 2 === 0, [])
-  const isOdd = useCallback((value) => value % 2 !== 0, [])
-  const sortAscending = useCallback((a, b) => a - b, [])
-  const sortDescending = useCallback((a, b) => b - a, [])
-
-  let set = useMemo(() => new Set(), [])
-  const removingDuplicatesExceptOne = useCallback(
-    (value) => !set.has(value) && set.add(value),
-    [set]
-  )
-
-  const removingDuplicates = useCallback((value, index, array) => {
-    let map = new Map()
-    for (let element of array) {
-      if (map.has(element)) {
-        map.set(element, map.get(element) + 1)
-      } else {
-        map.set(element, 1)
-      }
-    }
-    return map.get(value) === 1
-  }, [])
-
-  const removingAllElementsExceptDuplicates = useCallback(
-    (value, index, array) => {
-      let map = new Map()
-      for (let element of array) {
-        if (map.has(element)) {
-          map.set(element, map.get(element) + 1)
-        } else {
-          map.set(element, 1)
-        }
-      }
-      return map.get(value) !== 1
-    },
-    []
-  )
+  const throttleValue = useThrottle(value, 1000)
 
   return (
     <div className="App">
       <header className="App-header">
-        <p>[{values.join(', ')}]</p>
-        <button onClick={() => push(values.length)}>push</button>
-        <button onClick={() => update(3, 77)}>update 4 element to 77</button>
-        <button onClick={() => update(0, 77)}>
-          update first element to 77
-        </button>
-        <button onClick={() => update(values.length - 1, 77)}>
-          update last element to 77
-        </button>
-        <button onClick={() => clear()}>clear</button>
-        <button onClick={() => remove(0)}>remove first element</button>
-        <button onClick={() => remove(values.length - 1)}>
-          remove last element
-        </button>
-        <button onClick={() => remove(3)}>remove 4 element</button>
-        <button onClick={() => filter(isEven)}>filter isEven</button>
-        <button onClick={() => filter(isOdd)}>filter isOdd</button>
-        <button onClick={() => sort(sortAscending)}>sort ascending</button>
-        <button onClick={() => sort(sortDescending)}>sort descending</button>
-        <button onClick={() => filter(removingDuplicatesExceptOne)}>
-          removing duplicates except one
-        </button>
-        <button onClick={() => filter(removingDuplicates)}>
-          removing duplicates
-        </button>
-        <button onClick={() => filter(removingAllElementsExceptDuplicates)}>
-          removing all elements except duplicates
-        </button>
+        <input
+          id="text"
+          type="text"
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+        />
+        <p>{throttleValue}</p>
       </header>
     </div>
   )
