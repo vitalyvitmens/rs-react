@@ -214,21 +214,78 @@ import { useRef, useState } from 'react'
 //   )
 // }
 
-//! Сброс полей ввода в форме
+// //! Сброс полей ввода в форме
+// export default function Forms() {
+//   const formRef = useRef(null)
+//   const [inputs, setInputs] = useState({
+//     lastname: '',
+//     name: '',
+//     middlename: '',
+//   })
+
+//   const handleChange = (e) => {
+//     // console.log('####: event', e)
+//     setInputs((prevState) => ({
+//       ...prevState,
+//       [e.target.name]: e.target.value,
+//     }))
+//   }
+
+//   const handleSubmit = (e) => {
+//     e.preventDefault()
+//     console.log('####: submit', inputs)
+//     formRef.current.reset()
+//   }
+
+//   const handleReset = () => {
+//     console.log('####: reset')
+//     setInputs({})
+//   }
+
+//   return (
+//     <div className="App">
+//       <header className="App-header">
+//         <form
+//           ref={formRef}
+//           onChange={handleChange}
+//           onSubmit={handleSubmit}
+//           onReset={handleReset}
+//         >
+//           <input type="text" name="lastname" placeholder="Фамилия" />
+//           <input type="text" placeholder="Имя" name="name" />
+//           <input type="text" name="middlename" placeholder="Отчество" />
+//           <button type="submit">Submit</button>
+//           <button type="reset">Reset</button>
+//         </form>
+//       </header>
+//     </div>
+//   )
+// }
+
+//! focus и blur при работе с полями ввода
 export default function Forms() {
   const formRef = useRef(null)
+  const inputLastnameRef = useRef(null)
   const [inputs, setInputs] = useState({
     lastname: '',
     name: '',
     middlename: '',
   })
 
+  const handleBegin = () => {
+    inputLastnameRef.current.focus()
+  }
+
   const handleChange = (e) => {
     // console.log('####: event', e)
-    setInputs((prevState) => ({
-      ...prevState,
-      [e.target.name]: e.target.value,
-    }))
+    if (e.target.value.includes('q')) {
+      inputLastnameRef.current.blur()
+    } else {
+      setInputs((prevState) => ({
+        ...prevState,
+        [e.target.name]: e.target.value,
+      }))
+    }
   }
 
   const handleSubmit = (e) => {
@@ -245,13 +302,21 @@ export default function Forms() {
   return (
     <div className="App">
       <header className="App-header">
+        <button onClick={handleBegin}>Начать заполнять форму</button>
         <form
           ref={formRef}
           onChange={handleChange}
           onSubmit={handleSubmit}
           onReset={handleReset}
         >
-          <input type="text" name="lastname" placeholder="Фамилия" />
+          <input
+            ref={inputLastnameRef}
+            onFocus={() => console.log('####: onFocus')}
+            onBlur={() => console.log('####: onBlur')}
+            type="text"
+            name="lastname"
+            placeholder="Фамилия"
+          />
           <input type="text" placeholder="Имя" name="name" />
           <input type="text" name="middlename" placeholder="Отчество" />
           <button type="submit">Submit</button>
