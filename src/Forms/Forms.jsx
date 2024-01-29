@@ -71,6 +71,67 @@ import { useState } from 'react'
 //   )
 // }
 
+// //! Контролируемые поля ввода
+// export default function Forms() {
+//   const [inputs, setInputs] = useState({
+//     lastname: '',
+//     name: '',
+//     middlename: '',
+//   })
+
+//   const handleChange = (e) => {
+//     if (e.target.value.includes('q')) {
+//       setInputs((prevState) => ({
+//         ...prevState,
+//         [e.target.name]: prevState[e.target.name] + '-',
+//       }))
+//     } else {
+//       setInputs((prevState) => ({
+//         ...prevState,
+//         [e.target.name]: e.target.value,
+//       }))
+//     }
+//   }
+
+//   const handleSubmit = () => {
+//     console.log('####:', inputs)
+//     setInputs({
+//       lastname: '',
+//       name: '',
+//       middlename: '',
+//     })
+//   }
+
+//   return (
+//     <div className="App">
+//       <header className="App-header">
+//         <input
+//           value={inputs.lastname}
+//           type="text"
+//           name="lastname"
+//           placeholder="Фамилия"
+//           onChange={handleChange}
+//         />
+//         <input
+//           value={inputs.name}
+//           type="text"
+//           placeholder="Имя"
+//           name="name"
+//           onChange={handleChange}
+//         />
+//         <input
+//           value={inputs.middlename}
+//           type="text"
+//           name="middlename"
+//           placeholder="Отчество"
+//           onChange={handleChange}
+//         />
+//         <button onClick={handleSubmit}>Submit</button>
+//       </header>
+//     </div>
+//   )
+// }
+
 //! Контролируемые поля ввода
 export default function Forms() {
   const [inputs, setInputs] = useState({
@@ -80,33 +141,47 @@ export default function Forms() {
   })
 
   const handleChange = (e) => {
-    console.dir(e.target)
-    setInputs((prevState) => ({
-      ...prevState,
-      [e.target.name]: e.target.value,
-    }))
+    if (e.target.value.includes('q')) {
+      setInputs((prevState) => ({
+        ...prevState,
+        [e.target.name]: prevState[e.target.name] + '-',
+      }))
+    } else {
+      setInputs((prevState) => ({
+        ...prevState,
+        [e.target.name]: e.target.value,
+      }))
+    }
   }
 
   const handleSubmit = () => {
     console.log('####:', inputs)
+    setInputs({
+      lastname: '',
+      name: '',
+      middlename: '',
+    })
   }
 
   return (
     <div className="App">
       <header className="App-header">
         <input
+          value={inputs.lastname}
           type="text"
           name="lastname"
           placeholder="Фамилия"
           onChange={handleChange}
         />
         <input
+          value={inputs.name}
           type="text"
           placeholder="Имя"
           name="name"
           onChange={handleChange}
         />
         <input
+          value={inputs.middlename}
           type="text"
           name="middlename"
           placeholder="Отчество"
