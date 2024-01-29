@@ -179,8 +179,44 @@ import { useRef, useState } from 'react'
 //   )
 // }
 
-//! Работа с формой
+// //! Работа с формой
+// export default function Forms() {
+//   const [inputs, setInputs] = useState({
+//     lastname: '',
+//     name: '',
+//     middlename: '',
+//   })
+
+//   const handleChange = (e) => {
+//     // console.log('####: event', e)
+//     setInputs((prevState) => ({
+//       ...prevState,
+//       [e.target.name]: e.target.value,
+//     }))
+//   }
+
+//   const handleSubmit = (e) => {
+//     e.preventDefault()
+//     console.log('####: submit', inputs)
+//   }
+
+//   return (
+//     <div className="App">
+//       <header className="App-header">
+//         <form onChange={handleChange} onSubmit={handleSubmit}>
+//           <input type="text" name="lastname" placeholder="Фамилия" />
+//           <input type="text" placeholder="Имя" name="name" />
+//           <input type="text" name="middlename" placeholder="Отчество" />
+//           <button type="submit">Submit</button>
+//         </form>
+//       </header>
+//     </div>
+//   )
+// }
+
+//! Сброс полей ввода в форме
 export default function Forms() {
+  const formRef = useRef(null)
   const [inputs, setInputs] = useState({
     lastname: '',
     name: '',
@@ -198,16 +234,28 @@ export default function Forms() {
   const handleSubmit = (e) => {
     e.preventDefault()
     console.log('####: submit', inputs)
+    formRef.current.reset()
+  }
+
+  const handleReset = () => {
+    console.log('####: reset')
+    setInputs({})
   }
 
   return (
     <div className="App">
       <header className="App-header">
-        <form onChange={handleChange} onSubmit={handleSubmit}>
+        <form
+          ref={formRef}
+          onChange={handleChange}
+          onSubmit={handleSubmit}
+          onReset={handleReset}
+        >
           <input type="text" name="lastname" placeholder="Фамилия" />
           <input type="text" placeholder="Имя" name="name" />
           <input type="text" name="middlename" placeholder="Отчество" />
           <button type="submit">Submit</button>
+          <button type="reset">Reset</button>
         </form>
       </header>
     </div>
