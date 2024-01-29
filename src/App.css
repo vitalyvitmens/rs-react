@@ -223,3 +223,10 @@ input {
   padding: 0 10px;
   border-radius: 5px;
 }
+
+form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+}

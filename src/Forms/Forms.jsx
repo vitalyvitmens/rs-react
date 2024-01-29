@@ -181,46 +181,34 @@ import { useRef, useState } from 'react'
 
 //! Работа с формой
 export default function Forms() {
-  console.log('####: render')
-  const inputs = useRef({
+  const [inputs, setInputs] = useState({
     lastname: '',
     name: '',
     middlename: '',
   })
 
   const handleChange = (e) => {
-    inputs.current = {
-      ...inputs.current,
+    // console.log('####: event', e)
+    setInputs((prevState) => ({
+      ...prevState,
       [e.target.name]: e.target.value,
-    }
+    }))
   }
 
-  const handleSubmit = () => {
-    console.log('####:', inputs.current)
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    console.log('####: submit', inputs)
   }
 
   return (
     <div className="App">
       <header className="App-header">
-        <input
-          type="text"
-          name="lastname"
-          placeholder="Фамилия"
-          onChange={handleChange}
-        />
-        <input
-          type="text"
-          placeholder="Имя"
-          name="name"
-          onChange={handleChange}
-        />
-        <input
-          type="text"
-          name="middlename"
-          placeholder="Отчество"
-          onChange={handleChange}
-        />
-        <button onClick={handleSubmit}>Submit</button>
+        <form onChange={handleChange} onSubmit={handleSubmit}>
+          <input type="text" name="lastname" placeholder="Фамилия" />
+          <input type="text" placeholder="Имя" name="name" />
+          <input type="text" name="middlename" placeholder="Отчество" />
+          <button type="submit">Submit</button>
+        </form>
       </header>
     </div>
   )
