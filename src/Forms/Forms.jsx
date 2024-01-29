@@ -24,24 +24,94 @@ import { useState } from 'react'
 //   )
 // }
 
-//! Множественные поля ввода
+// //! Множественные поля ввода
+// export default function Forms() {
+//   const [inputs, setInputs] = useState({
+//     lastname: '',
+//     name: '',
+//     middlename: '',
+//   })
+
+//   const handleChange = (e) => {
+//     console.dir(e.target)
+//     setInputs((prevState) => ({
+//       ...prevState,
+//       [e.target.name]: e.target.value,
+//     }))
+//   }
+
+//   const handleSubmit = () => {
+//     console.log('####:', inputs)
+//   }
+
+//   return (
+//     <div className="App">
+//       <header className="App-header">
+//         <input
+//           type="text"
+//           name="lastname"
+//           placeholder="Фамилия"
+//           onChange={handleChange}
+//         />
+//         <input
+//           type="text"
+//           placeholder="Имя"
+//           name="name"
+//           onChange={handleChange}
+//         />
+//         <input
+//           type="text"
+//           name="middlename"
+//           placeholder="Отчество"
+//           onChange={handleChange}
+//         />
+//         <button onClick={handleSubmit}>Submit</button>
+//       </header>
+//     </div>
+//   )
+// }
+
+//! Контролируемые поля ввода
 export default function Forms() {
-  const [value, setValue] = useState('')
+  const [inputs, setInputs] = useState({
+    lastname: '',
+    name: '',
+    middlename: '',
+  })
 
   const handleChange = (e) => {
     console.dir(e.target)
-    console.log(e.target.value)
-    setValue(e.target.value)
+    setInputs((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }))
   }
 
   const handleSubmit = () => {
-    alert(value)
+    console.log('####:', inputs)
   }
 
   return (
     <div className="App">
       <header className="App-header">
-        <input type="text" onChange={handleChange} />
+        <input
+          type="text"
+          name="lastname"
+          placeholder="Фамилия"
+          onChange={handleChange}
+        />
+        <input
+          type="text"
+          placeholder="Имя"
+          name="name"
+          onChange={handleChange}
+        />
+        <input
+          type="text"
+          name="middlename"
+          placeholder="Отчество"
+          onChange={handleChange}
+        />
         <button onClick={handleSubmit}>Submit</button>
       </header>
     </div>
