@@ -14,6 +14,9 @@ export function BookList() {
         <li>
           <Link to="/books/3">Harry Potter 3</Link>
         </li>
+        <li>
+          <Link to="/books/new">New Book</Link>
+        </li>
       </ul>
     </>
   )
