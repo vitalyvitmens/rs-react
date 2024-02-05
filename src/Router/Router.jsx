@@ -6,6 +6,7 @@ import { Book } from './pages/Book'
 import { BookList } from './pages/BookList'
 import { NewBook } from './pages/NewBook'
 import { NotFound } from './pages/NotFound'
+import { BooksLayout } from './layout/BooksLayout'
 
 // //! Введение в React Router
 // // npm install react-router-dom
@@ -155,8 +156,61 @@ root.render(
 //   )
 // }
 
-//! Вложенные страницы - позволяет вкладывать одни роуты в другие, позволяя делать гибкую верстку
-// Жесткие пути в приоритете чем динамические пути
+// //! Вложенные страницы - позволяет вкладывать одни роуты в другие, позволяя делать гибкую верстку
+// // Жесткие пути в приоритете чем динамические пути
+// export default function Router() {
+//   return (
+//     <>
+//     <ul>
+//       <li><Link to="/">Home</Link></li>
+//       <li><Link to="/about">About</Link></li>
+//       <li><Link to="/books">BookList</Link></li>
+//       <li><Link to="/contact">Contact</Link></li>
+//     </ul>
+//       <Routes>
+//         <Route path="/" element={<Home />} />
+//         <Route path="/about" element={<About />} />
+//         <Route path="/books">
+//           <Route index element={<BookList />} />
+//           <Route path=":id" element={<Book />} />
+//           <Route path="new" element={<NewBook />} />
+//         </Route>
+//         {/* <Route path="/books" element={<BookList />} /> */}
+//         {/* <Route path="/books/:id/:img?" element={<Book />} /> */}
+//         {/* <Route path="/books/new" element={<NewBook />} /> */}
+//         <Route path="/contact" element={<Contact />} />
+//         <Route path="*" element={<NotFound />} />
+//       </Routes>
+//     </>
+//   )
+// }
+
+// //! Outlet
+// export default function Router() {
+//   return (
+//     <>
+//     <ul>
+//       <li><Link to="/">Home</Link></li>
+//       <li><Link to="/about">About</Link></li>
+//       <li><Link to="/books">BookList</Link></li>
+//       <li><Link to="/contact">Contact</Link></li>
+//     </ul>
+//       <Routes>
+//         <Route path="/" element={<Home />} />
+//         <Route path="/about" element={<About />} />
+//         <Route path="/books" element={<BooksLayout />}>
+//           <Route index element={<BookList />} />
+//           <Route path=":id" element={<Book />} />
+//           <Route path="new" element={<NewBook />} />
+//         </Route>
+//         <Route path="/contact" element={<Contact />} />
+//         <Route path="*" element={<NotFound />} />
+//       </Routes>
+//     </>
+//   )
+// }
+
+//! Outlet
 export default function Router() {
   return (
     <>
@@ -169,14 +223,11 @@ export default function Router() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
-        <Route path="/books">
+        <Route path="/books" element={<BooksLayout />}>
           <Route index element={<BookList />} />
           <Route path=":id" element={<Book />} />
           <Route path="new" element={<NewBook />} />
         </Route>
-        {/* <Route path="/books" element={<BookList />} /> */}
-        {/* <Route path="/books/:id/:img?" element={<Book />} /> */}
-        {/* <Route path="/books/new" element={<NewBook />} /> */}
         <Route path="/contact" element={<Contact />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
