@@ -37,15 +37,6 @@ import { BookList } from './pages/BookList'
 // }
 
 // //! Динамические сегменты
-// // npm install react-router-dom
-// // import { BrowserRouter } from 'react-router-dom'
-// /*const root = ReactDOM.createRoot(document.getElementById('root'))
-// root.render(
-//   <BrowserRouter> 
-//     <App /> 
-//   </BrowserRouter>
-// )*/
-
 // export default function Router() {
 //   return (
 //     <>
@@ -66,9 +57,50 @@ import { BookList } from './pages/BookList'
 //   )
 // }
 
-//! Типы Router
+//! Типы Router: 
 // npm install react-router-dom
-// import { BrowserRouter } from 'react-router-dom'
+//! 1). HashRouter - этот маршрутизатор перед роутом подставляет /#
+//! import { HashRouter } from 'react-router-dom'
+/*const root = ReactDOM.createRoot(document.getElementById('root'))
+root.render(
+  <HashRouter> 
+    <App /> 
+  </HashRouter>
+)*/
+//! 2). unstable_HistoryRoute - этот маршрутизатор позволяет в ручную управлять объектом истории (кнопка назад и вперед в браузере)
+//! import { unstable_HistoryRoute } from 'react-router-dom'
+/*const root = ReactDOM.createRoot(document.getElementById('root'))
+root.render(
+  <unstable_HistoryRoute> 
+    <App /> 
+  </unstable_HistoryRoute>
+)*/
+//! 3). MemoryRouter - этот маршрутизатор хранит в памяти место хранение информации о текущем маршруте Url браузера
+//! import { MemoryRouter } from 'react-router-dom'
+/*const root = ReactDOM.createRoot(document.getElementById('root'))
+root.render(
+  <MemoryRouter> 
+    <App /> 
+  </MemoryRouter>
+)*/
+//! 4). StaticRouter - этот маршрутизатор отвечает за серверный рендеринг, он принимает лишь один аргумент куда мы хотим перейти и поэтому отображает только одну статическую страницу
+//! import { unstable_HistoryRoute } from 'react-router-dom/server'
+/*const root = ReactDOM.createRoot(document.getElementById('root'))
+root.render(
+  <StaticRouter location="/book"> 
+    <App /> 
+  </StaticRouter>
+)*/
+//! 5). NativeRouter - этот маршрутизатор эквивалентен нашему BrowserRouter но только для React Native 
+//! import { NativeRouter } from 'react-router-dom'
+/*const root = ReactDOM.createRoot(document.getElementById('root'))
+root.render(
+  <NativeRouter> 
+    <App /> 
+  </NativeRouter>
+)*/
+//! 6). BrowserRouter - это наш маршрутизатор который покрывает 90% случаев использования внутри React 
+//! import { BrowserRouter } from 'react-router-dom'
 /*const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   <BrowserRouter> 
@@ -76,6 +108,7 @@ root.render(
   </BrowserRouter>
 )*/
 
+//! useParams()
 export default function Router() {
   return (
     <>
