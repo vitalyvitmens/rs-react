@@ -12,8 +12,8 @@ import { NotFound } from './pages/NotFound'
 // // import { BrowserRouter } from 'react-router-dom'
 // /*const root = ReactDOM.createRoot(document.getElementById('root'))
 // root.render(
-//   <BrowserRouter> 
-//     <App /> 
+//   <BrowserRouter>
+//     <App />
 //   </BrowserRouter>
 // )*/
 
@@ -59,7 +59,7 @@ import { NotFound } from './pages/NotFound'
 //   )
 // }
 
-//! Типы Router: 
+//! Типы Router:
 // npm install react-router-dom
 //! 1). HashRouter - этот маршрутизатор перед роутом подставляет /#
 //! import { HashRouter } from 'react-router-dom'
@@ -93,7 +93,7 @@ root.render(
     <App /> 
   </StaticRouter>
 )*/
-//! 5). NativeRouter - этот маршрутизатор эквивалентен нашему BrowserRouter но только для React Native 
+//! 5). NativeRouter - этот маршрутизатор эквивалентен нашему BrowserRouter но только для React Native
 //! import { NativeRouter } from 'react-router-dom'
 /*const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
@@ -101,7 +101,7 @@ root.render(
     <App /> 
   </NativeRouter>
 )*/
-//! 6). BrowserRouter - это наш маршрутизатор который покрывает 90% случаев использования внутри React 
+//! 6). BrowserRouter - это наш маршрутизатор который покрывает 90% случаев использования внутри React
 //! import { BrowserRouter } from 'react-router-dom'
 /*const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
@@ -131,7 +131,31 @@ root.render(
 //   )
 // }
 
-//! Специфичные пути и страница 404
+// //! Специфичные пути и страница 404
+// // Жесткие пути в приоритете чем динамические пути
+// export default function Router() {
+//   return (
+//     <>
+//     <ul>
+//       <li><Link to="/">Home</Link></li>
+//       <li><Link to="/about">About</Link></li>
+//       <li><Link to="/books">BookList</Link></li>
+//       <li><Link to="/contact">Contact</Link></li>
+//     </ul>
+//       <Routes>
+//         <Route path="/" element={<Home />} />
+//         <Route path="/about" element={<About />} />
+//         <Route path="/books" element={<BookList />} />
+//         <Route path="/books/:id/:img?" element={<Book />} />
+//         <Route path="/books/new" element={<NewBook />} />
+//         <Route path="/contact" element={<Contact />} />
+//         <Route path="*" element={<NotFound />} />
+//       </Routes>
+//     </>
+//   )
+// }
+
+//! Вложенные страницы - позволяет вкладывать одни роуты в другие, позволяя делать гибкую верстку
 // Жесткие пути в приоритете чем динамические пути
 export default function Router() {
   return (
@@ -145,9 +169,14 @@ export default function Router() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
-        <Route path="/books" element={<BookList />} />
-        <Route path="/books/:id/:img?" element={<Book />} />
-        <Route path="/books/new" element={<NewBook />} />
+        <Route path="/books">
+          <Route index element={<BookList />} />
+          <Route path=":id" element={<Book />} />
+          <Route path="new" element={<NewBook />} />
+        </Route>
+        {/* <Route path="/books" element={<BookList />} /> */}
+        {/* <Route path="/books/:id/:img?" element={<Book />} /> */}
+        {/* <Route path="/books/new" element={<NewBook />} /> */}
         <Route path="/contact" element={<Contact />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
