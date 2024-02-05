@@ -36,7 +36,37 @@ import { BookList } from './pages/BookList'
 //   )
 // }
 
-//! Динамические сегменты
+// //! Динамические сегменты
+// // npm install react-router-dom
+// // import { BrowserRouter } from 'react-router-dom'
+// /*const root = ReactDOM.createRoot(document.getElementById('root'))
+// root.render(
+//   <BrowserRouter> 
+//     <App /> 
+//   </BrowserRouter>
+// )*/
+
+// export default function Router() {
+//   return (
+//     <>
+//     <ul>
+//       <li><Link to="/">Home</Link></li>
+//       <li><Link to="/about">About</Link></li>
+//       <li><Link to="/books">BookList</Link></li>
+//       <li><Link to="/contact">Contact</Link></li>
+//     </ul>
+//       <Routes>
+//         <Route path="/" element={<Home />} />
+//         <Route path="/about" element={<About />} />
+//         <Route path="/books" element={<BookList />} />
+//         <Route path="/books/:id/:img?" element={<Book />} />
+//         <Route path="/contact" element={<Contact />} />
+//       </Routes>
+//     </>
+//   )
+// }
+
+//! Типы Router
 // npm install react-router-dom
 // import { BrowserRouter } from 'react-router-dom'
 /*const root = ReactDOM.createRoot(document.getElementById('root'))
@@ -52,15 +82,14 @@ export default function Router() {
     <ul>
       <li><Link to="/">Home</Link></li>
       <li><Link to="/about">About</Link></li>
-      <li><Link to="/book">Book</Link></li>
       <li><Link to="/books">BookList</Link></li>
       <li><Link to="/contact">Contact</Link></li>
     </ul>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
-        <Route path="/book" element={<Book />} />
         <Route path="/books" element={<BookList />} />
+        <Route path="/books/:id/:img?" element={<Book />} />
         <Route path="/contact" element={<Contact />} />
       </Routes>
     </>
