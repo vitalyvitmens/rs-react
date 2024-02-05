@@ -17,7 +17,7 @@ export function BooksLayout() {
           <Link to="/books/new">New Book</Link>
         </li>
       </ul>
-      <Outlet />
+      <Outlet context={{ name: 'Egor Book' }} />
     </>
   )
 }

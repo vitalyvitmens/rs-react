@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom'
+import { useParams, useOutletContext } from 'react-router-dom'
 
 export function Book() {
   // const params = useParams()
@@ -6,5 +6,12 @@ export function Book() {
   // console.log('####: params', params)
   console.log('####: id', id)
   console.log('####: img', img)
-  return <h1>Book {id}</h1>
+
+  const contextOutlet = useOutletContext()
+  console.log('####: contextOutlet', contextOutlet)
+  return (
+    <h1>
+      Book {id} {contextOutlet.name}
+    </h1>
+  )
 }
