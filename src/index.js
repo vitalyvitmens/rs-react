@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import './index.css'
+import { BrowserRouter } from 'react-router-dom'
 import LifeCycles from './LifeCycles'
 import Hooks from './Hooks'
 import NestedList from './Checkbox'
@@ -8,18 +8,23 @@ import CustomHooks from './CustomHooks/CustomHooks'
 import SiteBing from './SiteBing'
 import { EventLoop } from './tasks/EventLoop'
 import Forms from './Forms/Forms'
+import Router from './Router/Router'
+import './index.css'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   // <React.StrictMode>
-  <>
-    <Forms />
-    {/* <CustomHooks /> */}
-    {/* <EventLoop/> */}
-    {/* <Hooks /> */}
-    {/* <LifeCycles /> */}
-    {/* <NestedList/> */}
-    {/* <SiteBing/> */}
-  </>
+  <BrowserRouter>
+    <>
+      <Router />
+      {/* <Forms /> */}
+      {/* <CustomHooks /> */}
+      {/* <EventLoop/> */}
+      {/* <Hooks /> */}
+      {/* <LifeCycles /> */}
+      {/* <NestedList/> */}
+      {/* <SiteBing/> */}
+    </>
+  </BrowserRouter>
   // </React.StrictMode>
 )
