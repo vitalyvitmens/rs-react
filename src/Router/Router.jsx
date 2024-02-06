@@ -240,6 +240,10 @@ root.render(
 //       element: <Home />,
 //     },
 //     {
+//       path: '/about',
+//       element: <About />,
+//     },
+//     {
 //       path: '/books',
 //       element: <BooksLayout />,
 //       children: [
@@ -255,8 +259,16 @@ root.render(
 //           path: 'new',
 //           element: <NewBook />,
 //         },
-//       ]
-//     }
+//       ],
+//     },
+//     {
+//       path: '/contact',
+//       element: <Contact />,
+//     },
+//     {
+//       path: '*',
+//       element: <NotFound />,
+//     },
 //   ])
 //   return (
 //     <>
@@ -266,7 +278,7 @@ root.render(
 //       <li><Link to="/books">BookList</Link></li>
 //       <li><Link to="/contact">Contact</Link></li>
 //     </ul>
-//     { element }
+//     {element}
 //       {/* <Routes>
 //         <Route path="/" element={<Home />} />
 //         <Route path="/about" element={<About />} />
@@ -282,7 +294,35 @@ root.render(
 //   )
 // }
 
-//! Link
+// //! Link в нем аргумент to не единственный который можно использовать, есть ещё:
+// //! - replace он принимает true или false и подменяет предыдущую страницу в истории от компонента на котором данный аргумент находится, на пред-предыдущую страницу (полезно если после авторизации Вы не хотите что бы клиент возвращался на страницу авторизации)
+// //! - reloadDocument по клику на эту ссылку страница будет перезагружаться 
+// //! - state={} с его помощью возможно передавать какие то данные между компонентами используя внутреннее состояние нашего реакт роутера, при этом этот state не будет поподать в url, а будет храниться только внутри нашего реакт роутера
+// export default function Router() {
+//   return (
+//     <>
+//     <ul>
+//       <li><Link to="/" replace>Home</Link></li> 
+//       <li><Link to="/about" reloadDocument>About</Link></li>
+//       <li><Link to="/books" state={false}>BookList</Link></li>
+//       <li><Link to="/contact">Contact</Link></li>
+//     </ul>
+//       <Routes>
+//         <Route path="/" element={<Home />} />
+//         <Route path="/about" element={<About />} />
+//         <Route path="/books" element={<BooksLayout />}>
+//           <Route index element={<BookList />} />
+//           <Route path=":id" element={<Book />} />
+//           <Route path="new" element={<NewBook />} />
+//         </Route>
+//         <Route path="/contact" element={<Contact />} />
+//         <Route path="*" element={<NotFound />} />
+//       </Routes>
+//     </>
+//   )
+// }
+
+//! NavLink
 export default function Router() {
   return (
     <>
@@ -295,7 +335,11 @@ export default function Router() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
-        <Route path="/books/*" element={<BooksRoutes />} />
+        <Route path="/books" element={<BooksLayout />}>
+          <Route index element={<BookList />} />
+          <Route path=":id" element={<Book />} />
+          <Route path="new" element={<NewBook />} />
+        </Route>
         <Route path="/contact" element={<Contact />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
