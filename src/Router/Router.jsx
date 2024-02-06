@@ -389,15 +389,47 @@ root.render(
 //   )
 // }
 
-//! useSearchParams()
+// //! useSearchParams() - смотри файл src\Router\layout\BooksLayout.js
+// export default function Router() {
+//   return (
+//     <>
+//     <ul>
+//       <li><Link to="/">Home</Link></li>
+//       <li><Link to="/about">About</Link></li>
+//       <li><Link to="/books">BookList</Link></li>
+//       <li><Link to="/contact">Contact</Link></li>
+//     </ul>
+//       <Routes>
+//         <Route path="/" element={<Home />} />
+//         <Route path="/about" element={<About />} />
+//         <Route path="/books" element={<BooksLayout />}>
+//           <Route index element={<BookList />} />
+//           <Route path=":id" element={<Book />} />
+//           <Route path="new" element={<NewBook />} />
+//         </Route>
+//         <Route path="/contact" element={<Contact />} />
+//         <Route path="*" element={<NotFound />} />
+//       </Routes>
+//     </>
+//   )
+// }
+
+//! useLocation()
 export default function Router() {
   return (
     <>
     <ul>
-      <li><Link to="/">Home</Link></li>
-      <li><Link to="/about">About</Link></li>
-      <li><Link to="/books">BookList</Link></li>
-      <li><Link to="/contact">Contact</Link></li>
+      <li><NavLink style={({ isActive }) => {
+        console.log('####: isActive', isActive)
+        if (isActive) {
+          return {color: 'red'}
+        }
+        return {}
+      }} to="/">Home</NavLink></li>
+      <li><NavLink style={({ isActive }) => isActive ? { color: 'red'} : {}} to="/about">About</NavLink></li>
+      <li><NavLink className={({ isActive }) => isActive ? 'red' : null} to="/books" end>{({ isActive }) => isActive ? 'BookList Active' : 'BookList'}</NavLink></li>
+      <li><NavLink className={({isActive}) => isActive ? 'pink' : null} to="/contact">Contact</NavLink></li>
+      <li><NavLink to="/gallery">Gallery</NavLink></li>
     </ul>
       <Routes>
         <Route path="/" element={<Home />} />
@@ -408,6 +440,7 @@ export default function Router() {
           <Route path="new" element={<NewBook />} />
         </Route>
         <Route path="/contact" element={<Contact />} />
+        <Route path="/gallery" element={<Gallery />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>
