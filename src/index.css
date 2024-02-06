@@ -15,3 +15,17 @@ code {
 button {
   margin: 5px 0;
 }
+
+.pink {
+  color: pink;
+  font-weight: 800;
+}
+
+.red {
+  color: red;
+  font-weight: 700;
+}
+
+.active {
+  color: green;
+}
