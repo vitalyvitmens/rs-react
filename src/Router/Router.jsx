@@ -1,4 +1,4 @@
-import { Routes, Route, Link } from 'react-router-dom'
+import { Routes, Route, Link, useRoutes } from 'react-router-dom'
 import { Home } from './pages/Home'
 import { About } from './pages/About'
 import { Contact } from './pages/Contact'
@@ -232,7 +232,57 @@ root.render(
 //   )
 // }
 
-//! useRoutes()
+// //! useRoutes()
+// export default function Router() {
+//   const element = useRoutes([
+//     {
+//       path: '/',
+//       element: <Home />,
+//     },
+//     {
+//       path: '/books',
+//       element: <BooksLayout />,
+//       children: [
+//         {
+//           index: true,
+//           element: <BookList />,
+//         },
+//         {
+//           path: ':id',
+//           element: <Book />,
+//         },
+//         {
+//           path: 'new',
+//           element: <NewBook />,
+//         },
+//       ]
+//     }
+//   ])
+//   return (
+//     <>
+//     <ul>
+//       <li><Link to="/">Home</Link></li>
+//       <li><Link to="/about">About</Link></li>
+//       <li><Link to="/books">BookList</Link></li>
+//       <li><Link to="/contact">Contact</Link></li>
+//     </ul>
+//     { element }
+//       {/* <Routes>
+//         <Route path="/" element={<Home />} />
+//         <Route path="/about" element={<About />} />
+//         <Route path="/books" element={<BooksLayout />}>
+//           <Route index element={<BookList />} />
+//           <Route path=":id" element={<Book />} />
+//           <Route path="new" element={<NewBook />} />
+//         </Route>
+//         <Route path="/contact" element={<Contact />} />
+//         <Route path="*" element={<NotFound />} />
+//       </Routes> */}
+//     </>
+//   )
+// }
+
+//! Link
 export default function Router() {
   return (
     <>
