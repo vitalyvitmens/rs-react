@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { Navigate, useNavigate } from 'react-router-dom'
+import { Navigate, useNavigate, useLocation } from 'react-router-dom'
 
 export function NotFound() {
   const navigate = useNavigate()
@@ -18,3 +18,19 @@ export function NotFound() {
 
   return <h1>NotFound</h1>
 }
+
+// //! Раскомментируй для работы раздела useLocation()
+// export function NotFound() {
+//   const navigate = useNavigate()
+//   const location = useLocation()
+
+//   useEffect(() => {
+//     setTimeout(() => {
+//       navigate('/', {
+//         state: location.pathname,
+//       })
+//     }, 1000)
+//   }, [location.pathname, navigate])
+
+//   return <h1>NotFound</h1>
+// }

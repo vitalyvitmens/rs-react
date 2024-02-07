@@ -1,4 +1,4 @@
-import { Routes, Route, Link, useRoutes, NavLink } from 'react-router-dom'
+import { Routes, Route, Link, useRoutes, NavLink, useLocation } from 'react-router-dom'
 import { Home } from './pages/Home'
 import { About } from './pages/About'
 import { Contact } from './pages/Contact'
@@ -414,8 +414,10 @@ root.render(
 //   )
 // }
 
-//! useLocation()
+//! useLocation() - дополнительно смотри файл src\Router\pages\NotFound.js
 export default function Router() {
+  const location = useLocation()
+  console.log('####: location', location)
   return (
     <>
     <ul>
@@ -425,12 +427,13 @@ export default function Router() {
           return {color: 'red'}
         }
         return {}
-      }} to="/">Home</NavLink></li>
+      }} to="/" state='Hello, this is the state from location.state'>Home</NavLink></li>
       <li><NavLink style={({ isActive }) => isActive ? { color: 'red'} : {}} to="/about">About</NavLink></li>
       <li><NavLink className={({ isActive }) => isActive ? 'red' : null} to="/books" end>{({ isActive }) => isActive ? 'BookList Active' : 'BookList'}</NavLink></li>
       <li><NavLink className={({isActive}) => isActive ? 'pink' : null} to="/contact">Contact</NavLink></li>
       <li><NavLink to="/gallery">Gallery</NavLink></li>
     </ul>
+    <div style={{color: 'red', fontWeight: 700, fontSize: '1.5rem'}}>{ location.state }</div>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
