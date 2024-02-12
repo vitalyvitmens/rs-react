@@ -1,13 +1,16 @@
-import { Link, Outlet } from 'react-router-dom'
+import { NavLink, Outlet } from 'react-router-dom'
+import { AuthStatus } from '../../ContextAPI/components/AuthStatus'
 
 export function MainLayout() {
   return (
     <>
+      <AuthStatus />
       <ul>
-        <li><Link to="/">Home</Link></li>
-        <li><Link to="/about">About</Link></li>
-        <li><Link to="/users">Users</Link></li>
+        <li><NavLink to="/">Home</NavLink></li>
+        <li><NavLink to="/about">About</NavLink></li>
+        <li><NavLink to="/users">Users</NavLink></li>
       </ul>
+
       <Outlet />
     </>
   )

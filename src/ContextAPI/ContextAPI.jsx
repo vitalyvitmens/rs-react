@@ -9,6 +9,7 @@ import { Home } from '../Router/pages/Home'
 import { About } from '../Router/pages/About'
 import { Users } from '../Router/pages/Users'
 import { AuthProvider } from './context/AuthProvider'
+import { Login } from '../Router/pages/Login'
 
 // //! Введение в Context API
 // export default function ContextAPI() {
@@ -106,7 +107,7 @@ import { AuthProvider } from './context/AuthProvider'
 //   )
 // }
 
-// //! PrivateRoute с использованием Context API, часть 1 - дополнительно смотри файл src\ContextAPI\context\AuthProvider.js и src\Router\layout\MainLayout.js
+// //! PrivateRoute с использованием Context API - дополнительно смотри файл src\ContextAPI\context\AuthProvider.js и src\Router\layout\MainLayout.js и src\ContextAPI\components\AuthStatus.js и src\Router\pages\Login.js
 export const ThemeContext = createContext()
 
 export default function ContextAPI() {
@@ -118,6 +119,7 @@ export default function ContextAPI() {
           <Route path="/about" element={<About />} />
           <Route path="/users" element={<Users />} />
         </Route>
+        <Route path="/login" element={<Login />} />
       </Routes>
     </AuthProvider>
   )

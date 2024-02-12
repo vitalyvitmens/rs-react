@@ -9,25 +9,21 @@ export function useAuth() {
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null)
 
-  const signIn = (newUser, callback) => {
+  const signin = (newUser, callback) => {
     setUser(newUser)
     callback()
   }
 
-  const signOut = (callback) => {
+  const signout = (callback) => {
     setUser(null)
     callback()
   }
 
   const value = {
     user,
-    signIn,
-    signOut,
+    signin,
+    signout,
   }
 
-  return (
-    <AuthContext.Provider value={value}>
-      {children}
-    </AuthContext.Provider>
-    )
-  }
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
+}
