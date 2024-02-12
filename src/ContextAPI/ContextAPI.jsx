@@ -2,6 +2,7 @@
 import { useRef, useState, createContext } from 'react'
 import contextAPIImg from '../assets/ContextAPI.jpg'
 import { FunctionComponent } from './FunctionComponent'
+import { ThemeProvider, useThemeUpdate } from './context/ThemeProvider'
 
 // //! Введение в Context API
 // export default function ContextAPI() {
@@ -57,7 +58,49 @@ import { FunctionComponent } from './FunctionComponent'
 //   )
 // }
 
-//! Оптимизируем использование контекста - дополнительно смотри файл src\ContextAPI\FunctionComponent.jsx
+// //! Оптимизируем использование контекста - дополнительно смотри файл src\ContextAPI\FunctionComponent.jsx и src\ContextAPI\context\ThemeProvider.js
+// export default function ContextAPI() {
+//   return (
+//     <>
+//       <ThemeProvider>
+//         <Home />
+//       </ThemeProvider>
+//       <ThemeProvider>
+//         <About />
+//       </ThemeProvider>
+//     </>
+//   )
+// }
+
+// function Home() {
+//   const handleChangeDark = useThemeUpdate()
+
+//   return (
+//     <div className="App">
+//       <header className="App-header">
+//         <h1>Home</h1>
+//         <button onClick={handleChangeDark}>Change Theme</button>
+//         <FunctionComponent />
+//       </header>
+//     </div>
+//   )
+// }
+
+// function About() {
+//   const handleChangeDark = useThemeUpdate()
+
+//   return (
+//     <div className="App">
+//       <header className="App-header">
+//         <h1>About</h1>
+//         <button onClick={handleChangeDark}>Change Theme</button>
+//         <FunctionComponent />
+//       </header>
+//     </div>
+//   )
+// }
+
+// //! PrivateRoute с использованием Context API, часть 1 - дополнительно смотри файл src\ContextAPI\FunctionComponent.jsx
 export const ThemeContext = createContext()
 
 export default function ContextAPI() {
@@ -75,10 +118,6 @@ export default function ContextAPI() {
       <div className="App">
         <header className="App-header">
           <button onClick={handleChangeDark}>Change Theme</button>
-          <FunctionComponent />
-          <br />
-          <FunctionComponent />
-          <br />
           <FunctionComponent />
         </header>
       </div>

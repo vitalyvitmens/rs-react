@@ -1,5 +1,6 @@
 import { useContext } from 'react'
 import { ThemeContext } from './ContextAPI'
+import { useTheme, useThemeUpdate } from './context/ThemeProvider'
 
 // //! Provider и useContext()
 // export function FunctionComponent() {
@@ -17,7 +18,27 @@ import { ThemeContext } from './ContextAPI'
 //   )
 // }
 
-//! Передача событий в Context
+// //! Передача событий в Context
+// function getTheme(theme) {
+//   return {
+//     background: theme ? '#fff' : '#282c34',
+//     color: theme ? '#282c34' : '#fff',
+//   }
+// }
+
+// export function FunctionComponent() {
+//   const value = useContext(ThemeContext)
+//   console.log('####: value', value)
+
+//   return (
+//     <div style={getTheme(value.dark)}>
+//       <h1>Function Component</h1>
+//       <button onClick={value.changeTheme}>Change Theme</button>
+//     </div>
+//   )
+// }
+
+//! Оптимизируем использование контекста
 function getTheme(theme) {
   return {
     background: theme ? '#fff' : '#282c34',
@@ -26,13 +47,13 @@ function getTheme(theme) {
 }
 
 export function FunctionComponent() {
-  const value = useContext(ThemeContext)
-  console.log('####: value', value)
+  const dark = useTheme()
+  const changeTheme = useThemeUpdate()
 
   return (
-    <div style={getTheme(value.dark)}>
+    <div style={getTheme(dark)}>
       <h1>Function Component</h1>
-      <button onClick={value.changeTheme}>Change Theme</button>
+      <button onClick={changeTheme}>Change Theme</button>
     </div>
   )
 }
