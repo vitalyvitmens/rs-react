@@ -1,6 +1,7 @@
 //! Context API
-import { useRef, useState } from 'react'
+import { useRef, useState, createContext } from 'react'
 import contextAPIImg from '../assets/ContextAPI.jpg'
+import { FunctionComponent } from './FunctionComponent'
 
 // //! Введение в Context API
 // export default function ContextAPI() {
@@ -11,26 +12,34 @@ import contextAPIImg from '../assets/ContextAPI.jpg'
 //   )
 // }
 
-//! Provider и useContext()
+// //! Provider и useContext()
+// export const ThemeContext = createContext()
+
+// export default function ContextAPI() {
+//   return (
+//     <ThemeContext.Provider value={{ name: 'Egor', age: 15 }}>
+//       <div className="App">
+//         <header className="App-header">
+//           <button>Change Theme</button>
+//           <FunctionComponent />
+//         </header>
+//       </div>
+//     </ThemeContext.Provider>
+//   )
+// }
+
+//! Передача событий в Context
+export const ThemeContext = createContext()
+
 export default function ContextAPI() {
-  const [value, setValue] = useState('')
-
-  const handleChange = (e) => {
-    console.dir(e.target)
-    console.log(e.target.value)
-    setValue(e.target.value)
-  }
-
-  const handleSubmit = () => {
-    alert(value)
-  }
-
   return (
-    <div className="App">
-      <header className="App-header">
-        <input type="text" onChange={handleChange} />
-        <button onClick={handleSubmit}>Submit</button>
-      </header>
-    </div>
+    <ThemeContext.Provider value={{ name: 'Egor', age: 15 }}>
+      <div className="App">
+        <header className="App-header">
+          <button>Change Theme</button>
+          <FunctionComponent />
+        </header>
+      </div>
+    </ThemeContext.Provider>
   )
 }
