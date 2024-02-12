@@ -10,13 +10,15 @@ import { EventLoop } from './tasks/EventLoop'
 import Forms from './Forms/Forms'
 import Router from './Router/Router'
 import './index.css'
+import ContextAPI from './ContextAPI/ContextAPI'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   // <React.StrictMode>
   <BrowserRouter>
     <>
-      <Router />
+      <ContextAPI />
+      {/* <Router /> */}
       {/* <Forms /> */}
       {/* <CustomHooks /> */}
       {/* <EventLoop/> */}
