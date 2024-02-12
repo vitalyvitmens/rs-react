@@ -12,7 +12,7 @@ import { FunctionComponent } from './FunctionComponent'
 //   )
 // }
 
-// //! Provider и useContext()
+// //! Provider и useContext() - дополнительно смотри файл src\ContextAPI\FunctionComponent.jsx
 // export const ThemeContext = createContext()
 
 // export default function ContextAPI() {
@@ -28,15 +28,57 @@ import { FunctionComponent } from './FunctionComponent'
 //   )
 // }
 
-//! Передача событий в Context
+// //! Передача событий в Context - дополнительно смотри файл src\ContextAPI\FunctionComponent.jsx
+// export const ThemeContext = createContext()
+
+// export default function ContextAPI() {
+//   const [dark, setDark] = useState(false)
+
+//   const handleChangeDark = () => setDark((s) => !s)
+
+//   return (
+//     <ThemeContext.Provider
+//       value={{
+//         dark,
+//         changeTheme: () => setDark((s) => !s),
+//       }}
+//     >
+//       <div className="App">
+//         <header className="App-header">
+//           <button onClick={handleChangeDark}>Change Theme</button>
+//           <FunctionComponent />
+//           <br />
+//           <FunctionComponent />
+//           <br />
+//           <FunctionComponent />
+//         </header>
+//       </div>
+//     </ThemeContext.Provider>
+//   )
+// }
+
+//! Оптимизируем использование контекста - дополнительно смотри файл src\ContextAPI\FunctionComponent.jsx
 export const ThemeContext = createContext()
 
 export default function ContextAPI() {
+  const [dark, setDark] = useState(false)
+
+  const handleChangeDark = () => setDark((s) => !s)
+
   return (
-    <ThemeContext.Provider value={{ name: 'Egor', age: 15 }}>
+    <ThemeContext.Provider
+      value={{
+        dark,
+        changeTheme: () => setDark((s) => !s),
+      }}
+    >
       <div className="App">
         <header className="App-header">
-          <button>Change Theme</button>
+          <button onClick={handleChangeDark}>Change Theme</button>
+          <FunctionComponent />
+          <br />
+          <FunctionComponent />
+          <br />
           <FunctionComponent />
         </header>
       </div>
