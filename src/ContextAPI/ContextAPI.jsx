@@ -10,6 +10,7 @@ import { About } from '../Router/pages/About'
 import { Users } from '../Router/pages/Users'
 import { AuthProvider } from './context/AuthProvider'
 import { Login } from '../Router/pages/Login'
+import { PrivateRoure } from './components/PrivateRoure'
 
 // //! Введение в Context API
 // export default function ContextAPI() {
@@ -107,14 +108,14 @@ import { Login } from '../Router/pages/Login'
 //   )
 // }
 
-// //! PrivateRoute с использованием Context API - дополнительно смотри файл src\ContextAPI\context\AuthProvider.js и src\Router\layout\MainLayout.js и src\ContextAPI\components\AuthStatus.js и src\Router\pages\Login.js
+// //! PrivateRoute с использованием Context API - дополнительно смотри файлы src\ContextAPI\context\AuthProvider.js и src\Router\layout\MainLayout.js и src\ContextAPI\components\AuthStatus.js и src\Router\pages\Login.js и src\Router\pages\Users.js и src\ContextAPI\components\PrivateRoure.js
 export const ThemeContext = createContext()
 
 export default function ContextAPI() {
   return (
     <AuthProvider>
       <Routes>
-        <Route element={<MainLayout />}>
+        <Route element={<PrivateRoure><MainLayout /></PrivateRoure>}>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/users" element={<Users />} />

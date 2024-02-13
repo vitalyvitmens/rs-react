@@ -7,19 +7,22 @@ export function useAuth() {
 }
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useState(() => localStorage.getItem('user') || null)
+  console.log('####: user', user)
 
   const signin = (newUser, callback) => {
     setUser(newUser)
+    localStorage.setItem('user', newUser)
     callback()
   }
 
   const signout = (callback) => {
     setUser(null)
+    localStorage.removeItem('user')
     callback()
   }
-
   const value = {
+    // здесь можем хранить любые данные о user:
     user,
     signin,
     signout,
