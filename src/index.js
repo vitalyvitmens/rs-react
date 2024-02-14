@@ -11,13 +11,15 @@ import Forms from './Forms/Forms'
 import Router from './Router/Router'
 import './index.css'
 import ContextAPI from './ContextAPI/ContextAPI'
+import { Optimization } from './Optimization/Optimization'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   // <React.StrictMode>
   <BrowserRouter>
     <>
-      <ContextAPI />
+      <Optimization />
+      {/* <ContextAPI /> */}
       {/* <Router /> */}
       {/* <Forms /> */}
       {/* <CustomHooks /> */}
