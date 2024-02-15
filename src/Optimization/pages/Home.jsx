@@ -106,8 +106,8 @@ export function Home() {
       </button>
       {isPending && 'Loading...'}
       {admin ? <Component name="Admin" /> : <h2>Not Admin</h2>}
-      {render.map((item, idx) => (
-        <Component key={idx} name={item} />
+      {render.map((item, index) => (
+        <Component key={index} name={item} />
       ))}
     </>
   )
