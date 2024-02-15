@@ -5,6 +5,9 @@
 // import { Users } from './pages/Users'
 // import { MainLayout } from './layout/MainLayout'
 
+import { useState } from 'react'
+import { useSearchBooks } from './hooks/useSearchBooks'
+
 // export function Optimization() {
 //   return (
 //     <Routes>
@@ -97,7 +100,7 @@
 //   )
 // }
 
-// //! 5. Error Boundary
+// //! 5. Error Boundary - смотри вместе с src\Optimization\ErrorBoundaryRCC.js и src\Optimization\ErrorBoundaryRFC.js
 // import { useState } from 'react'
 // import ErrorBoundaryRCC from './ErrorBoundaryRCC'
 // import ErrorBoundaryRFC from './ErrorBoundaryRFC'
@@ -131,35 +134,34 @@
 //   )
 // }
 
-//! 6. Infinity Scroll, часть 1
-import { useState } from 'react'
-import ErrorBoundaryRCC from './ErrorBoundaryRCC'
-import ErrorBoundaryRFC from './ErrorBoundaryRFC'
-
-function SomeComponent({ count }) {
-  return (
-    <p>
-      1 plus {count()} equals {1 + count()}
-    </p>
-  )
-}
-
+//! 6. Infinity Scroll, часть 1 - смотри совместно с src\Optimization\hooks\useSearchBooks.js
+// npm install axios
+// https://openlibrary.org/search.json
+// https://openlibrary.org/search.json?q=test
+// https://openlibrary.org/search.json?q=test&page=20
 export function Optimization() {
-  const [count, setCount] = useState(0)
+  const [query, setQuery] = useState('')
+  const [pageNumber, setPageNumber] = useState(1)
+
+  useSearchBooks(query, pageNumber)
+
+  const handleChange = (e) => {
+    setQuery(e.target.value)
+    setPageNumber(1)
+  }
 
   return (
     <div className="App">
       <header className="App-header">
-        <p>Example {count}</p>
-        <button onClick={() => setCount((s) => s + 1)}>Count</button>
-        <ErrorBoundaryRCC>
-          {/* <SomeComponent count={5} /> */}
-          <SomeComponent count={() => 5} />
-        </ErrorBoundaryRCC>
-        <ErrorBoundaryRFC>
-          {/* <SomeComponent count={5} /> */}
-          <SomeComponent count={() => 5} />
-        </ErrorBoundaryRFC>
+        <input type="text" onChange={handleChange} />
+        <div className="books-title">Title</div>
+        <div>Title</div>
+        <div>Title</div>
+        <div>Title</div>
+        <div>Title</div>
+        <div>Title</div>
+        <div className="books-loading">Loading...</div>
+        <div className="books-error">Error</div>
       </header>
     </div>
   )

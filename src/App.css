@@ -230,3 +230,16 @@ form {
   width: 100%;
   align-items: center;
 }
+
+.books-title {
+  padding: 6px 0;
+}
+
+.books-loading {
+  font-size: 24px;
+  color: green;
+}
+
+.books-error {
+  color: red;
+}
