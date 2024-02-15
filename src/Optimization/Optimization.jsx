@@ -43,7 +43,61 @@
 //   )
 // }
 
-//! 3. Lazy loading и useTransition() - дополнительно смотри src\Optimization\pages\Home.jsx и src\Optimization\pages\About.jsx и src\Optimization\pages\Users.jsx
+// //! 3. Lazy loading и useTransition() - дополнительно смотри src\Optimization\pages\Home.jsx и src\Optimization\pages\About.jsx и src\Optimization\pages\Users.jsx
+// import { lazy } from 'react'
+// import { Routes, Route } from 'react-router-dom'
+// import { MainLayout } from './layout/MainLayout'
+
+// const Home = lazy(() =>
+//   import('./pages/Home').then((module) => ({ default: module.Home }))
+// )
+// const About = lazy(() =>
+//   import('./pages/About').then((module) => ({ default: module.About }))
+// )
+// const Users = lazy(() =>
+//   import('./pages/Users').then((module) => ({ default: module.Users }))
+// )
+
+// export function Optimization() {
+//   return (
+//     <Routes>
+//       <Route element={<MainLayout />}>
+//         <Route path="/" element={<Home />} />
+//         <Route path="/about" element={<About />} />
+//         <Route path="/users" element={<Users />} />
+//       </Route>
+//     </Routes>
+//   )
+// }
+
+// //! 4. Создание динамических компонентов - смотри вместе с src\Optimization\components\Component.jsx и src\Optimization\pages\Home.jsx и папку src\Optimization\components
+// import { lazy } from 'react'
+// import { Routes, Route } from 'react-router-dom'
+// import { MainLayout } from './layout/MainLayout'
+
+// const Home = lazy(() =>
+//   import('./pages/Home').then((module) => ({ default: module.Home }))
+// )
+// const About = lazy(() =>
+//   import('./pages/About').then((module) => ({ default: module.About }))
+// )
+// const Users = lazy(() =>
+//   import('./pages/Users').then((module) => ({ default: module.Users }))
+// )
+
+// export function Optimization() {
+//   return (
+//     <Routes>
+//       <Route element={<MainLayout />}>
+//         <Route path="/" element={<Home />} />
+//         <Route path="/about" element={<About />} />
+//         <Route path="/users" element={<Users />} />
+//       </Route>
+//     </Routes>
+//   )
+// }
+
+//! 5. Error Boundary
 import { lazy } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import { MainLayout } from './layout/MainLayout'
