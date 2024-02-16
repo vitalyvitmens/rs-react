@@ -7,13 +7,12 @@ export function useSearchBooks(query, pageNumber) {
   const [books, setBooks] = useState([])
   const [hasMore, setHasMore] = useState(true)
 
-  useEffect(() => {
-    setBooks([])
-  }, [query])
+  useEffect(() => setBooks([]), [query])
 
   useEffect(() => {
     setLoading(true)
     setError(false)
+
     let cancel
     axios({
       method: 'GET',
@@ -27,6 +26,8 @@ export function useSearchBooks(query, pageNumber) {
             ...new Set([...prevState, ...res.data.docs.map((b) => b.title)]),
           ]
         })
+
+        setHasMore(res.data.docs.length > 0)
         setLoading(false)
         // console.log('####: res', res.data)
       })
@@ -34,6 +35,7 @@ export function useSearchBooks(query, pageNumber) {
         if (axios.isCancel(e)) {
           return
         }
+
         setError(false)
         console.error(e)
       })

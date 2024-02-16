@@ -5,9 +5,6 @@
 // import { Users } from './pages/Users'
 // import { MainLayout } from './layout/MainLayout'
 
-import { useState } from 'react'
-import { useSearchBooks } from './hooks/useSearchBooks'
-
 // export function Optimization() {
 //   return (
 //     <Routes>
@@ -134,16 +131,44 @@ import { useSearchBooks } from './hooks/useSearchBooks'
 //   )
 // }
 
-//! 6. Infinity Scroll, часть 1 - смотри совместно с src\Optimization\hooks\useSearchBooks.js
+//! 6. Infinity Scroll, часть 1, 2, 3 - смотри совместно с src\Optimization\hooks\useSearchBooks.js
 // npm install axios
 // https://openlibrary.org/search.json
 // https://openlibrary.org/search.json?q=test
 // https://openlibrary.org/search.json?q=test&page=20
+import { useState, useRef, useCallback } from 'react'
+import { useSearchBooks } from './hooks/useSearchBooks'
+
 export function Optimization() {
   const [query, setQuery] = useState('')
   const [pageNumber, setPageNumber] = useState(1)
 
   const { loading, error, books, hasMore } = useSearchBooks(query, pageNumber)
+
+  const observer = useRef()
+  const lastNodeRef = useCallback(
+    (node) => {
+      if (loading) return
+
+      if (observer.current) {
+        observer.current.disconnect()
+      }
+
+      observer.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && hasMore) {
+          setPageNumber((prevState) => prevState + 1)
+          console.log('####: VISIBLE')
+        }
+      })
+
+      if (node) {
+        observer.current.observe(node)
+      }
+
+      console.log('####: node', node)
+    },
+    [hasMore, loading]
+  )
 
   const handleChange = (e) => {
     setQuery(e.target.value)
@@ -153,12 +178,22 @@ export function Optimization() {
   return (
     <div className="App">
       <header className="App-header">
-        <input type="text" name='search' onChange={handleChange} />
-        {books.map((item) => (
-          <div key={item} className="books-title">
-            {item}
-          </div>
-        ))}
+        <input type="text" name="search" onChange={handleChange} />
+        {books.map((item, index) => {
+          if (books.length - 20 === index + 1) {
+            return (
+              <div ref={lastNodeRef} key={item} className="books-title">
+                {item}
+              </div>
+            )
+          } else {
+            return (
+              <div key={item} className="books-title">
+                {item}
+              </div>
+            )
+          }
+        })}
         {loading && <div className="books-loading">Loading...</div>}
         {error && <div className="books-error">Error</div>}
       </header>
