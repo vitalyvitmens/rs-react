@@ -143,7 +143,7 @@ export function Optimization() {
   const [query, setQuery] = useState('')
   const [pageNumber, setPageNumber] = useState(1)
 
-  useSearchBooks(query, pageNumber)
+  const { loading, error, books, hasMore } = useSearchBooks(query, pageNumber)
 
   const handleChange = (e) => {
     setQuery(e.target.value)
@@ -153,15 +153,14 @@ export function Optimization() {
   return (
     <div className="App">
       <header className="App-header">
-        <input type="text" onChange={handleChange} />
-        <div className="books-title">Title</div>
-        <div>Title</div>
-        <div>Title</div>
-        <div>Title</div>
-        <div>Title</div>
-        <div>Title</div>
-        <div className="books-loading">Loading...</div>
-        <div className="books-error">Error</div>
+        <input type="text" name='search' onChange={handleChange} />
+        {books.map((item) => (
+          <div key={item} className="books-title">
+            {item}
+          </div>
+        ))}
+        {loading && <div className="books-loading">Loading...</div>}
+        {error && <div className="books-error">Error</div>}
       </header>
     </div>
   )
